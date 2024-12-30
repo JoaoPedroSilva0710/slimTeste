@@ -2,15 +2,18 @@
 
 declare(strict_types=1);
 
-use App\Application\Handlers\HttpErrorHandler;
-use App\Application\Handlers\ShutdownHandler;
-use App\Application\ResponseEmitter\ResponseEmitter;
-use App\Application\Settings\SettingsInterface;
+use Slim\Views\Twig;
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
+use Slim\Views\TwigMiddleware;
+use App\Application\Handlers\ShutdownHandler;
 use Slim\Factory\ServerRequestCreatorFactory;
-
+use App\Application\Handlers\HttpErrorHandler;
+use App\Application\Settings\SettingsInterface;
+use App\Application\ResponseEmitter\ResponseEmitter;
 require __DIR__ . '/../vendor/autoload.php';
+
+
 
 // Instantiate PHP-DI ContainerBuilder
 $containerBuilder = new ContainerBuilder();
@@ -71,6 +74,11 @@ $app->addRoutingMiddleware();
 
 // Add Body Parsing Middleware
 $app->addBodyParsingMiddleware();
+
+// Instanciando o Twig
+$views_path = __DIR__ . '/../views';
+$twig = Twig::create($views_path, ['cache' => false]);
+$app->add(TwigMiddleware::create($app, $twig));
 
 // Add Error Middleware
 $errorMiddleware = $app->addErrorMiddleware($displayErrorDetails, $logError, $logErrorDetails);
