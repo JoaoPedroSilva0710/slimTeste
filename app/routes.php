@@ -18,7 +18,7 @@ return function (App $app) {
 
     $app->get('/', function ($request, $response, $args) {
         $view = Twig::fromRequest($request);
-        return $view->render($response, 'index.html');
+        return $view->render($response, 'master.html');
     });
  
 
