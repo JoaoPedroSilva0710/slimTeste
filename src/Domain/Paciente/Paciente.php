@@ -13,7 +13,7 @@ use PhpParser\Node\Expr\FuncCall;
 
 use function PHPUnit\Framework\throwException;
 
-class Paciente
+class Paciente implements JsonSerializable
 {
     const INVALID_NAME = 'O nome do paciente ou da mãe é inválido';
     const INVALID_SHORT_NAME = 'O nome do paciente deve ter no mínimo 5 caracteres';
@@ -54,7 +54,7 @@ class Paciente
     }
 
     private static function sexoValidation(string $sexo){
-        if(!$sexo || strlen($sexo) > 1){
+        if(!$sexo || strlen($sexo) > 1 || !preg_match('/[FM]/', $sexo)){
             throw new Exception(self::INVALID_SEXO);
 
         }
@@ -156,10 +156,28 @@ class Paciente
         if(!is_bool($ativo))
         {
             throw new Exception(self::INVALID_ATIVO);
-
         }
 
         return $ativo;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'data_nascimento' => $this->data_nascimento,
+            'sexo' => $this->sexo,
+            'nome_mae' => $this->nome_mae,
+            'email' => $this->email,
+            'cpf' => $this->cpf,
+            'cep' => $this->cep,
+            'nome_rua' => $this->nome_rua,
+            'numero_casa' => $this->numero_casa,
+            'bairro' => $this->bairro,
+            'uf' => $this->uf,
+            'ativo' => $this->ativo  
+        ];
     }
 
 }
