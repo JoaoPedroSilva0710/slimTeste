@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 use Slim\App;
 use Slim\Views\Twig;
+use PhpParser\Node\Expr\List_;
 use App\Application\Actions\User\ViewUserAction;
 use App\Application\Actions\User\ListUsersAction;
 use Psr\Http\Message\ResponseInterface as Response;
+use App\Application\Actions\Paciente\PacienteAction;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Application\Actions\Paciente\ListPacienteAction;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
 return function (App $app) {
@@ -26,4 +29,6 @@ return function (App $app) {
         $group->get('', ListUsersAction::class);
         $group->get('/{id}', ViewUserAction::class);
     });
+
+    $app->get('/paciente', ListPacienteAction::class);
 };

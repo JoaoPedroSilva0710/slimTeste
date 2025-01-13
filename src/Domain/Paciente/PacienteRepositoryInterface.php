@@ -14,5 +14,5 @@ interface PacienteRepositoryInterface
      * @param int $id
      * @return Paciente
      */
-    public function findUserOfId(int $id): Paciente;
+    public function findUserOfId(int $id): array;
 }
