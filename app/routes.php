@@ -11,6 +11,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Actions\Paciente\PacienteAction;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Application\Actions\Paciente\ListPacienteAction;
+use App\Application\Actions\Paciente\ViewPacienteAction;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
 return function (App $app) {
@@ -30,5 +31,7 @@ return function (App $app) {
         $group->get('/{id}', ViewUserAction::class);
     });
 
-    $app->get('/paciente', ListPacienteAction::class);
+    $app->group('/pacientes', function (Group $group) {
+    $group->get('', ListPacienteAction::class);
+    });
 };

@@ -8,7 +8,8 @@ class ListPacienteAction extends PacienteAction
 {
     protected function action() : Response 
     {
-        return $this->respondWithData(['msg' => 'João passando']);
+        $pacientes = $this->pacienteRepository->findAll();
+        return $this->respondWithData($pacientes);
 
     }
 }

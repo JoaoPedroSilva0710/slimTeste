@@ -16,7 +16,7 @@ use function PHPUnit\Framework\throwException;
 class Paciente implements JsonSerializable
 {
     const INVALID_NAME = 'O nome do paciente ou da mãe é inválido';
-    const INVALID_SHORT_NAME = 'O nome do paciente deve ter no mínimo 5 caracteres';
+    const INVALID_SHORT_NAME = 'O nome do paciente deve ter no mínimo 3 caracteres';
     const INVALID_ID = 'Este usuário não existe no banco de dados';
     const INVALID_SEXO = 'Digite F ou M no campo sexo';
     const INVALID_DATA_NASCIMENTO = 'Digite uma data de nascimento válida';
@@ -40,102 +40,72 @@ class Paciente implements JsonSerializable
     }
 
     private static function nameValidation(string $nome){
-        $pattern = '/^([a-z,á,é,í,ó,ú,â,ê,ô,ã,õ,ç," "]+)$/ui';
-        if (!preg_match($pattern, $nome)){
-            throw new Exception(self::INVALID_NAME);
-        }
+        $pattern = '/^[a-záéíóúâêôãõç ]+$/ui';
+        if(!preg_match($pattern, $nome)) throw new Exception(self::INVALID_NAME);
 
-        if(strlen($nome) < 5){
-            throw new Exception(self::INVALID_SHORT_NAME);
-        }
+        if(strlen($nome) < 3) throw new Exception(self::INVALID_SHORT_NAME);
 
-        return $nome;
-        
+        return $nome;       
     }
 
     private static function sexoValidation(string $sexo){
-        if(!$sexo || strlen($sexo) > 1 || !preg_match('/[FM]/', $sexo)){
-            throw new Exception(self::INVALID_SEXO);
-
-        }
-        
+        if(!preg_match('/^[FM]{1}$/', $sexo)) throw new Exception(self::INVALID_SEXO);
+    
         return $sexo;
     }
 
     private static function idValidation(?int $id){
-        if($id <= 0){
-            throw new Exception(self::INVALID_ID);
-        }
+        if($id <= 0) throw new Exception(self::INVALID_ID);
 
         return $id;
     }
 
     private static function dateValidation(string $data_nascimento, $format = 'd-m-Y'){
         $d = DateTime::createFromFormat($format, $data_nascimento);
-        if($d && $d->format($format) != $data_nascimento)
-        {
-            throw new Exception(self::INVALID_DATA_NASCIMENTO);
-        }
-        return $data_nascimento;
+        if($d && $d->format($format) != $data_nascimento) throw new Exception(self::INVALID_DATA_NASCIMENTO);
 
+        return $data_nascimento;
     }
 
     private static function emailValidation(string $email)
     {
-        if(!$email || !filter_var($email, FILTER_VALIDATE_EMAIL))
-        {
-            throw new Exception(self::INVALID_EMAIL);
-        }
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) throw new Exception(self::INVALID_EMAIL);
 
         return $email;
     }
 
     private static function cpfValidation(string $cpf)
     {
-        $pattern = '/\d{3}\.?\d{3}\.?\d{3}\-?\d{2}/';
-        if(!preg_match($pattern, $cpf))
-        {
-            throw new Exception(self::INVALID_CPF);
-        }
+        $pattern = '/^\d{3}\.?\d{3}\.?\d{3}\-?\d{2}$/';
+        if(!preg_match($pattern, $cpf)) throw new Exception(self::INVALID_CPF);
         return $cpf;
     }
 
     private static function cepValidation(string $cep){
-        $pattern = '/\^d{5}-?\d{3}$/';
-        if(!preg_match($pattern, $cep)){
-            throw new Exception(self::INVALID_CEP);
-        }
+        $pattern = '/^\d{5}-?\d{3}$/';
+        if(!preg_match($pattern, $cep)) throw new Exception(self::INVALID_CEP);
 
         return $cep;
     }
 
     private static function nomeRuaValidation(string $nome_rua){
-        $pattern = '/^([a-z,á,é,í,ó,ú,â,ê,ô,ã,õ,ç," "\.0-9]+)$/ui';
-        if(!preg_match($nome_rua, $pattern))
-        {
-            throw new Exception(self::INVALID_NOME_RUA);
-        }
+        $pattern = '/^[a-z,á,é,í,ó,ú,â,ê,ô,ã,õ,ç,.0-9 ]{3,255}$/ui';
+        if(!preg_match($pattern, $nome_rua)) throw new Exception(self::INVALID_NOME_RUA);
 
         return $nome_rua;
     }
 
     private static function numeroCasaValidation(string $numero_casa)
     {
-        $pattern = '/\d{0,5}/';
-        if(!preg_match($pattern, $numero_casa))
-        {
-            throw new Exception(self::INVALID_NUMERO_CASA);
-        }
+        $pattern = '/^\d{1,5}$/';
+        if(!preg_match($pattern, $numero_casa)) throw new Exception(self::INVALID_NUMERO_CASA);
 
         return $numero_casa;
     }
 
     private static function bairroValidation(string $bairro){
-        $pattern = '/^([a-z,á,é,í,ó,ú,â,ê,ô,ã,õ,ç," "\.0-9]+)$/ui';
-        if(!preg_match($bairro, $pattern))
-        {
-            throw new Exception(self::INVALID_NOME_RUA);
-        }
+        $pattern = '/^[a-z,á,é,í,ó,ú,â,ê,ô,ã,õ,ç,.0-9 ]{3,}$/ui';
+        if(!preg_match($pattern, $bairro)) throw new Exception(self::INVALID_NOME_RUA);
 
         return $bairro;
     }
@@ -143,20 +113,14 @@ class Paciente implements JsonSerializable
     private static function ufValidation(string $uf)
     {
         $arrayUf = ["AC" ,"AL" ,"AP" ,"AM" ,"BA" ,"CE" ,"DF" ,"ES" ,"GO" ,"MA" ,"MT" ,"MS" ,"MG" ,"PA" ,"PB" ,"PR" ,"PE" ,"PI" ,"RJ" ,"RN" ,"RS" ,"RO" ,"RR" ,"SC" ,"SP" ,"SE" ,"TO"];
-        if(!in_array($uf, $arrayUf))
-        {
-            throw new Exception(self::INVALID_UF);
-        }
+        if(!in_array($uf, $arrayUf)) throw new Exception(self::INVALID_UF);
 
         return $uf;
     }
 
     private static function ativoValidation(bool $ativo)
     {
-        if(!is_bool($ativo))
-        {
-            throw new Exception(self::INVALID_ATIVO);
-        }
+        if(!is_bool($ativo)) throw new Exception(self::INVALID_ATIVO);
 
         return $ativo;
     }
