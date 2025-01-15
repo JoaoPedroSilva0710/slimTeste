@@ -24,7 +24,11 @@ return function (App $app) {
         $view = Twig::fromRequest($request);
         return $view->render($response, 'home.html');
     });
- 
+    
+    $app->get('/listar', function ($request, $response, $args) {
+        $view = Twig::fromRequest($request);
+        return $view->render($response, 'listar.html');
+    });
 
     $app->group('/users', function (Group $group) {
         $group->get('', ListUsersAction::class);
@@ -33,5 +37,6 @@ return function (App $app) {
 
     $app->group('/pacientes', function (Group $group) {
     $group->get('', ListPacienteAction::class);
+    $group->get('/{id}', ViewPacienteAction::class);
     });
 };

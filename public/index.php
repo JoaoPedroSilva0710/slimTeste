@@ -17,9 +17,14 @@ require __DIR__ . '/../vendor/autoload.php';
 
 // Instantiate PHP-DI ContainerBuilder
 $containerBuilder = new ContainerBuilder();
-
 if (false) { // Should be set to true in production
 	$containerBuilder->enableCompilation(__DIR__ . '/../var/cache');
+}
+
+$env = parse_ini_file(__DIR__."/../.env");
+
+if(!$env){
+    throw new Exception("Variavel de Ambiente Env nao foi encontrada ou esta mal configurada");
 }
 
 // Set up settings
