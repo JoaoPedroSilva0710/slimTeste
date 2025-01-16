@@ -1,3 +1,5 @@
+const urlPacientes = '/pacientes';
+
 $(
 async() => 
 {
@@ -8,7 +10,7 @@ async() =>
 
 const fetchPacients = async() => 
 {
-    let response = await fetch('/pacientes');
+    let response = await fetch(urlPacientes);
     let obj = await response.json();
     let data = await obj.data;
 
@@ -55,9 +57,34 @@ const constructDataTable = async() => {
 }
 
 
-$("body").on("click", "#btn-edit-pacient", e => {
-        const id = e.target.dataset.id;
-        console.log(id);
-}
+$("body").on("click", "#btn-edit-pacient", async e => {
+        let id = e.target.dataset.id;
 
-)
+        let response = await fetch(`${urlPacientes}/${id}`);
+
+        let obj = await response.json();
+
+        populaFormulario(await obj);
+
+        let modal = document.getElementById("dialogEditaFormulario");
+        modal.show();
+
+        alert(id);
+        
+});
+
+
+const populaFormulario = async (obj) => {
+    Object
+    .entries(obj[0])
+    .forEach(([key, value]) => {
+        console.log(`${key} -- ${value}`);
+        $(`#${key}`).val(value);
+    })
+
+};
+
+
+
+
+
