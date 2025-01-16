@@ -7,13 +7,41 @@
 
 {% block master %}
 
-<h2>Lista de pacientes</h2>
+<div id="idTitle" class="container">
 
-<table id="tablePacientes">
+    <p class="h1">Lista de pacientes</p>
 
+</div>
+
+<div class="container">
+
+
+
+<table id="tablePacientes" class="table table-striped" style="width: 100%">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Data de nascimento</th>
+            <th>Sexo</th>
+            <th>Nome da mãe</th>
+            <th>Email</th>
+            <th>CPF</th>
+            <th>CEP</th>
+            <th>Nome da rua</th>
+            <th>Número da casa</th>
+            <th>Bairro</th>
+            <th>UF</th>
+            <th>Ativo</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+    </tbody>
 
 </table>
-
+</div>
 {% endblock %}
 
 {% block scripts %}
