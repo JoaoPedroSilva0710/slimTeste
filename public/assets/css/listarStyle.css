@@ -1,19 +1,23 @@
 #idTitle{
     text-align: center;
-
 }
 
 .divButtonClass{
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    gap: 30%;
+    width: 30px;
 }
 
-.delete-btn{
-    background-color: rgb(0, 255, 251);
 
+.btn_del_pacient{
+    font-size: 200%;
+    cursor: pointer;
+    color: rgb(255, 0, 0);
 }
 
-.edit-btn{
-    background-color: rgb(215,76,76);
+.btn_edit_pacient{
+    font-size: 200%;
+    cursor: pointer;
+    color: rgb(115, 253, 91);
 }

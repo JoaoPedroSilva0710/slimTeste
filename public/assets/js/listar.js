@@ -4,8 +4,7 @@ $(
 async() => 
 {
     await constructDataTable();
-
-    
+   
 });
 
 const fetchPacients = async() => 
@@ -39,12 +38,8 @@ const constructDataTable = async() => {
             { data: "ativo" },
             { render: function(data, type, row) {
              return `<div class="divButtonClass">
-                        <button class="delete-btn" data-id="${row.id}" id="btn-edit-pacient">
-                            <img src="/assets/imgs/editBtnImg.png" class="img-fluid">
-                        </button>
-                        <button class="edit-btn" data-id="${row.id}" id="btn-del-pacient">
-                            <img src="/assets/imgs/deleteBtnImg.png" class="img-fluid">
-                        </button>
+                            <i class="fa-solid fa-pencil btn_edit_pacient" data-id="${row.id}"></i>
+                            <i class="fa-solid fa-trash btn_del_pacient" data-id="${row.id}"></i>
                     </div>
                     `;
             }
@@ -56,33 +51,80 @@ const constructDataTable = async() => {
 
 }
 
+// function populaFormulario(obj){
+//     console.log(`Dentro da função ${JSON.stringify(obj)}`);
+// }
 
-$("body").on("click", "#btn-edit-pacient", async e => {
+const populaFormulario = (obj) => {
+    Object
+    .entries(obj.data[0])
+    .forEach(([key, value]) => {
+        $(`#${key}`).val(value);
+    })
+
+    // Object.keys(obj.data[0]).forEach(e => {
+    //     console.log(e);
+    // })
+
+};
+
+
+
+let message = (icon, mensagem) => {
+    Swal.fire({
+        position: "top-end",
+        icon: icon,
+        title: mensagem,
+        showConfirmButton: false,
+        timer: 1500
+      })};
+
+$("body").on("click", ".btn_edit_pacient", async e => {
+    try {
         let id = e.target.dataset.id;
 
         let response = await fetch(`${urlPacientes}/${id}`);
 
         let obj = await response.json();
+        
 
-        populaFormulario(await obj);
+        populaFormulario(obj);
 
         let modal = document.getElementById("dialogEditaFormulario");
         modal.show();
 
-        alert(id);
+
+    } catch (exception) {
+
+        alert(exception);
+    }
+
         
 });
 
+$("body").on("click", ".btn_del_pacient", async e => {
+    try {
+        $("#id").val(`${e.target.dataset.id}`)
+        $("#ativo").val("TRUE");
+        let form = new FormData(formulario);
+        let response = await fetch(`${urlPacientes}/${id}`, {
+            method: 'POST',
+            body: form
+        });
+        let obj = await response.json();
+        // window.location.reload();
+        console.log(obj);
 
-const populaFormulario = async (obj) => {
-    Object
-    .entries(obj[0])
-    .forEach(([key, value]) => {
-        console.log(`${key} -- ${value}`);
-        $(`#${key}`).val(value);
-    })
+    } catch (exception) {
 
-};
+        alert(exception);
+    }
+
+    
+});
+
+
+
 
 
 

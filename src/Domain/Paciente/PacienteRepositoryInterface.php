@@ -17,4 +17,11 @@ interface PacienteRepositoryInterface
      * @return Paciente
      */
     public function findPacienteOfId(int $id): array;
+
+    public function cadastrate(Paciente $paciente): array;
+
+    public function delete(int $id): array;
+
+    public function update(Paciente $paciente): array;
+
 }
