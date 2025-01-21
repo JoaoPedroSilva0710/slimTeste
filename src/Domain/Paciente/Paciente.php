@@ -57,7 +57,7 @@ class Paciente implements JsonSerializable
     private static function idValidation(?int $id){
         if($id <= 0) throw new Exception(self::INVALID_ID);
 
-        return $id;
+        return (int) $id;
     }
 
     private static function dateValidation(string $data_nascimento, $format = 'd-m-Y'){

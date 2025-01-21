@@ -79,11 +79,12 @@ let message = (icon, mensagem) => {
         timer: 1500
       })};
 
+      
 $("body").on("click", ".btn_edit_pacient", async e => {
     try {
-        let id = e.target.dataset.id;
+        $("#id").val(`${e.target.dataset.id}`);
 
-        let response = await fetch(`${urlPacientes}/${id}`);
+        let response = await fetch(`${urlPacientes}`);
 
         let obj = await response.json();
         
@@ -91,6 +92,7 @@ $("body").on("click", ".btn_edit_pacient", async e => {
         populaFormulario(obj);
 
         let modal = document.getElementById("dialogEditaFormulario");
+
         modal.show();
 
 
@@ -104,14 +106,15 @@ $("body").on("click", ".btn_edit_pacient", async e => {
 
 $("body").on("click", ".btn_del_pacient", async e => {
     try {
-        $("#id").val(`${e.target.dataset.id}`)
+        $("#id").val(`${e.target.dataset.id}`);
+
         $("#ativo").val("TRUE");
-        let form = new FormData(formulario);
-        let response = await fetch(`${urlPacientes}/${id}`, {
-            method: 'POST',
+
+        let request = await fetch(`${urlPacientes}`, {
+            method: "POST",
             body: form
         });
-        let obj = await response.json();
+        let obj = await request.json();
         // window.location.reload();
         console.log(obj);
 
@@ -121,6 +124,23 @@ $("body").on("click", ".btn_del_pacient", async e => {
     }
 
     
+});
+
+
+$("body").on("click", "#btn_submit_modal", async (e) => {
+
+    let form = new FormData(document.getElementById("formulario"));
+
+    let request = await fetch(`${urlPacientes}`, {
+        method: "POST",
+        body: form
+
+    });
+    
+    let response = await request.json();
+
+    console.log(response);
+
 });
 
 

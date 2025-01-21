@@ -38,7 +38,7 @@ return function (App $app) {
 
     $app->group('/pacientes', function (Group $group) {
     $group->get('', ListPacienteAction::class);
+    $group->post('', CadPacienteAction::class);
     $group->get('/{id}', ViewPacienteAction::class);
-    $group->post('/{id}', CadPacienteAction::class);
     });
 };
