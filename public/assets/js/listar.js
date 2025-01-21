@@ -79,15 +79,16 @@ let message = (icon, mensagem) => {
         timer: 1500
       })};
 
-      
+
 $("body").on("click", ".btn_edit_pacient", async e => {
     try {
+
+        let id = e.target.dataset.id;
         $("#id").val(`${e.target.dataset.id}`);
 
-        let response = await fetch(`${urlPacientes}`);
+        let response = await fetch(`${urlPacientes}/${id}`);
 
-        let obj = await response.json();
-        
+        let obj = await response.json();    
 
         populaFormulario(obj);
 
@@ -114,9 +115,12 @@ $("body").on("click", ".btn_del_pacient", async e => {
             method: "POST",
             body: form
         });
+
         let obj = await request.json();
-        // window.location.reload();
+
         console.log(obj);
+
+        window.location.reload();
 
     } catch (exception) {
 
@@ -139,9 +143,20 @@ $("body").on("click", "#btn_submit_modal", async (e) => {
     
     let response = await request.json();
 
-    console.log(response);
+    console.log(await response.data['icon']);
 
+    message(response.data['icon'], response.data['msg']);
+
+   
 });
+
+
+$("body").on("click", "#btn_close_modal", () => {
+    let modal = document.getElementById("dialogEditaFormulario");
+
+    modal.close();
+
+})
 
 
 
