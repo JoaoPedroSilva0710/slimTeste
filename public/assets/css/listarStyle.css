@@ -22,3 +22,10 @@
     cursor: pointer;
     color: rgb(115, 253, 91);
 }
+
+
+.div_btn_form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
