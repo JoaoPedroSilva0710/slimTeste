@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Application\Actions\Paciente\CadPacienteAction;
+use App\Application\Actions\Paciente\DelPacienteAction;
 use Slim\App;
 use Slim\Views\Twig;
 use PhpParser\Node\Expr\List_;
@@ -40,5 +41,6 @@ return function (App $app) {
     $group->get('', ListPacienteAction::class);
     $group->post('', CadPacienteAction::class);
     $group->get('/{id}', ViewPacienteAction::class);
+    $group->post('/delete', DelPacienteAction::class);
     });
 };

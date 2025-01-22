@@ -15,7 +15,9 @@
 
 <div class="container">
 
-
+<div class="container">
+    <button id="btn_show_cadastrate_pacient">Cadastar Novo Paciente</button>
+</div>
 
 <table id="tablePacientes" class="table table-striped" style="width: 100%">
     <thead>
@@ -31,7 +33,6 @@
             <th>Número da casa</th>
             <th>Bairro</th>
             <th>UF</th>
-            <th>Ativo</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -97,6 +98,6 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="/assets/js/listar.js"></script>
+<script src="/assets/js/listar.js" type="module"></script>
 
 {% endblock %}

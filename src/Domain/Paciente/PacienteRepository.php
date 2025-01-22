@@ -37,7 +37,7 @@ class PacienteRepository implements PacienteRepositoryInterface
         return $resp;
 
         } catch(Exception $e) {
-            return $e->getMessage();
+            return Mensagem::response('error', $e->getMessage(), $e->getCode());
         }
     }
 
@@ -51,14 +51,14 @@ class PacienteRepository implements PacienteRepositoryInterface
         
         $query = "SELECT * FROM usuarios WHERE id = :id AND ativo = TRUE;";
         $stmt = $this->sql->prepare($query);
-        $stmt->bindParam(":id", $id);
+        $stmt->bindValue(":id", $id);
         $stmt->execute();
         $resp = $stmt->fetchAll(SQL::FETCH_ASSOC);
 
         return $resp;
         
         } catch(Exception $e){
-            return $e->getMessage();
+            return Mensagem::response('error', $e->getMessage(), $e->getCode());
 
         }
     }
@@ -72,24 +72,24 @@ class PacienteRepository implements PacienteRepositoryInterface
 
             $stmt = $this->sql->prepare($query);
 
-            $stmt->bindParam(":nome", $paciente->nome);
-            $stmt->bindParam(":data_nascimento", $paciente->data_nascimento);
-            $stmt->bindParam(":sexo", $paciente->sexo);
-            $stmt->bindParam(":nome_mae", $paciente->nome_mae);
-            $stmt->bindParam(":email", $paciente->email);
-            $stmt->bindParam(":cpf", $paciente->cpf);
-            $stmt->bindParam(":cep", $paciente->cep);
-            $stmt->bindParam(":nome_rua", $paciente->nome_rua);
-            $stmt->bindParam(":numero_casa", $paciente->numero_casa);
-            $stmt->bindParam(":bairro", $paciente->bairro);
-            $stmt->bindParam(":uf", $paciente->uf);
+            $stmt->bindValue(":nome", $paciente->nome);
+            $stmt->bindValue(":data_nascimento", $paciente->data_nascimento);
+            $stmt->bindValue(":sexo", $paciente->sexo);
+            $stmt->bindValue(":nome_mae", $paciente->nome_mae);
+            $stmt->bindValue(":email", $paciente->email);
+            $stmt->bindValue(":cpf", $paciente->cpf);
+            $stmt->bindValue(":cep", $paciente->cep);
+            $stmt->bindValue(":nome_rua", $paciente->nome_rua);
+            $stmt->bindValue(":numero_casa", $paciente->numero_casa);
+            $stmt->bindValue(":bairro", $paciente->bairro);
+            $stmt->bindValue(":uf", $paciente->uf);
 
             $stmt->execute();
     
             return Mensagem::response('success', self::PACIENT_CREATED, 201);
             
             } catch(Exception $e){
-                return $e->getMessage();
+                return Mensagem::response('error', $e->getMessage(), $e->getCode());
     
             }
     }
@@ -99,18 +99,17 @@ class PacienteRepository implements PacienteRepositoryInterface
     {
         try{
         
-            $query = "DELETE FROM usuarios WHERE id = :id;";
+            $query = "UPDATE usuarios SET ativo = false where id = :id";
 
             $stmt = $this->sql->prepare($query);
-            $stmt->bindParam(":id", $id);
+            $stmt->bindValue(":id", $id);
             $stmt->execute();
 
-            $resp = $stmt->fetchAll(SQL::FETCH_ASSOC);
     
             return Mensagem::response('success', self::PACIENT_DELETED, 201);
             
             } catch(Exception $e){
-                return $e->getMessage();
+                return Mensagem::response('error', $e->getMessage(), $e->getCode());
     
             }
     }
@@ -144,7 +143,7 @@ class PacienteRepository implements PacienteRepositoryInterface
             
         } catch(Exception $e){
 
-            return Mensagem::response('error', $e->getMessage(), 400);
+            return Mensagem::response('error', $e->getMessage(), $e->getCode());
             
         }
 

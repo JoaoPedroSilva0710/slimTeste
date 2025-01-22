@@ -1,4 +1,4 @@
-const urlPacientes = '/pacientes';
+import * as requests from "./module/requests.js";
 
 $(
 async() => 
@@ -9,7 +9,7 @@ async() =>
 
 const fetchPacients = async() => 
 {
-    let response = await fetch(urlPacientes);
+    let response = await fetch(requests.urlPacientes);
     let obj = await response.json();
     let data = await obj.data;
 
@@ -35,7 +35,6 @@ const constructDataTable = async() => {
             { data: "numero_casa" },
             { data: "bairro" },
             { data: "uf" },
-            { data: "ativo" },
             { render: function(data, type, row) {
              return `<div class="divButtonClass">
                             <i class="fa-solid fa-pencil btn_edit_pacient" data-id="${row.id}"></i>
@@ -62,19 +61,29 @@ const populaFormulario = (obj) => {
         $(`#${key}`).val(value);
     })
 
-    // Object.keys(obj.data[0]).forEach(e => {
-    //     console.log(e);
-    // })
+};
 
+const cleanForm = () => {
+    $(`#id`).val("");
+    $(`#nome`).val("");
+    $(`#data_nascimento`).val("");
+    $(`#sexo`).val("");
+    $(`#nome_mae`).val("");
+    $(`#email`).val("");
+    $(`#cpf`).val("");
+    $(`#cep`).val("");
+    $(`#nome_rua`).val("");
+    $(`#numero_casa`).val("");
+    $(`#bairro`).val("");
+    $(`#uf`).val("");
 };
 
 
 
 let message = (icon, mensagem) => {
     Swal.fire({
-        position: "top-end",
         icon: icon,
-        title: mensagem,
+        text: mensagem,
         showConfirmButton: false,
         timer: 1500
       })};
@@ -86,7 +95,7 @@ $("body").on("click", ".btn_edit_pacient", async e => {
         let id = e.target.dataset.id;
         $("#id").val(`${e.target.dataset.id}`);
 
-        let response = await fetch(`${urlPacientes}/${id}`);
+        let response = await fetch(`${requests.urlPacientes}/${id}`);
 
         let obj = await response.json();    
 
@@ -109,22 +118,31 @@ $("body").on("click", ".btn_del_pacient", async e => {
     try {
         $("#id").val(`${e.target.dataset.id}`);
 
-        $("#ativo").val("TRUE");
+        let form = new FormData(document.getElementById("formulario"));
 
-        let request = await fetch(`${urlPacientes}`, {
+        let request = await fetch(`${requests.urlPacienteDelete}`, {
             method: "POST",
             body: form
         });
 
-        let obj = await request.json();
+        let response = await request.json();
 
-        console.log(obj);
+        if (!response.data['icon']) {
 
-        window.location.reload();
+            return message('error', 'Erro desconhecido');
+
+        }
+
+        message(response.data['icon'], response.data['msg']);
+
+        if(response.data['icon'] != 'error') {
+            return setTimeout(() => {  window.location.reload() }, 1000);
+
+    }
 
     } catch (exception) {
 
-        alert(exception);
+        message('error', exception);
     }
 
     
@@ -135,7 +153,7 @@ $("body").on("click", "#btn_submit_modal", async (e) => {
 
     let form = new FormData(document.getElementById("formulario"));
 
-    let request = await fetch(`${urlPacientes}`, {
+    let request = await fetch(`${requests.urlPacientes}`, {
         method: "POST",
         body: form
 
@@ -143,11 +161,28 @@ $("body").on("click", "#btn_submit_modal", async (e) => {
     
     let response = await request.json();
 
-    console.log(await response.data['icon']);
+    // console.log(await response);
 
     message(response.data['icon'], response.data['msg']);
 
-   
+    let modal = document.getElementById("dialogEditaFormulario");
+
+    if (!response.data['icon']) {
+        return message('error', 'Erro desconhecido');
+
+    }
+
+    message(response.data['icon'], response.data['msg']);
+
+    if(response.data['icon'] != 'error') {
+        modal.close();
+        return setTimeout(() => {  window.location.reload() }, 1000);
+        
+}
+
+    // modal.close();
+
+    // setTimeout(() => {  window.location.reload(); }, 1000);
 });
 
 
@@ -158,6 +193,14 @@ $("body").on("click", "#btn_close_modal", () => {
 
 })
 
+
+$("body").on("click", "#btn_show_cadastrate_pacient", () => {
+    cleanForm();
+
+    let modal = document.getElementById("dialogEditaFormulario");
+
+    modal.show();
+})
 
 
 
