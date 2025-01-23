@@ -29,12 +29,12 @@ return function (App $app) {
         return $view->render($response, 'home.html');
     });
 
-    $app->get('/cadastrar', function ($request, $response, $args) {
-        $view = Twig::fromRequest($request);
-        return $view->render($response, 'cadastrarUsuario.html');
+    $app->group('/admin', function (Group $group) {
+        $group->get('/cadastrar', function ($request, $response, $args) {
+            $view = Twig::fromRequest($request);
+            return $view->render($response, 'cadastrarUsuario.html');
+        }); 
     });
-
-
     
     $app->get('/listar', function ($request, $response, $args) {
         $view = Twig::fromRequest($request);

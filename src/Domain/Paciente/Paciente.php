@@ -17,7 +17,7 @@ class Paciente implements JsonSerializable
 {
     const INVALID_NAME = 'O nome do paciente ou da mãe é inválido';
     const INVALID_SHORT_NAME = 'O nome do paciente deve ter no mínimo 3 caracteres';
-    const INVALID_ID = 'Este usuário não existe no banco de dados';
+    const INVALID_ID = 'Este paciente não existe no banco de dados';
     const INVALID_SEXO = 'Digite F ou M no campo sexo';
     const INVALID_DATA_NASCIMENTO = 'Digite uma data de nascimento válida';
     const INVALID_EMAIL = 'Este e-mail é inválido';
