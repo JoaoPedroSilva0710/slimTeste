@@ -51,8 +51,11 @@ class PacienteRepository implements PacienteRepositoryInterface
         
         $query = "SELECT * FROM usuarios WHERE id = :id AND ativo = TRUE;";
         $stmt = $this->sql->prepare($query);
+
         $stmt->bindValue(":id", $id);
+        
         $stmt->execute();
+
         $resp = $stmt->fetchAll(SQL::FETCH_ASSOC);
 
         return $resp;

@@ -2,13 +2,22 @@
 
 namespace App\Application\Actions\Paciente;
 
+use Exception;
 use Slim\Psr7\Response;
 
 class ListPacienteAction extends PacienteAction
 {
     protected function action() : Response 
     {
-        $pacientes = $this->pacienteRepository->findAll();
+        try {
+            
+            $pacientes = $this->pacienteRepository->findAll();
+
+        } catch (Exception $e) {
+
+            
+
+        }
         return $this->respondWithData($pacientes);
 
     }

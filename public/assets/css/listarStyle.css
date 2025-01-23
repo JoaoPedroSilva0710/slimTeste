@@ -29,3 +29,11 @@
     justify-content: space-between;
     align-items: center;
 }
+
+#btn_close_modal{
+    background-color: red;
+    border-color: red;
+    &:hover{
+        background-color: rgb(184, 0, 0);
+    }
+}
