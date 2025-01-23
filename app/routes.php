@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
-use App\Application\Actions\Paciente\CadPacienteAction;
-use App\Application\Actions\Paciente\DelPacienteAction;
 use Slim\App;
 use Slim\Views\Twig;
 use PhpParser\Node\Expr\List_;
-use App\Application\Actions\User\ViewUserAction;
-use App\Application\Actions\User\ListUsersAction;
+use App\Application\Actions\NewUser\ViewUserAction;
 use Psr\Http\Message\ResponseInterface as Response;
+// use App\Application\Actions\User\ViewUserAction;
+// use App\Application\Actions\User\ListUsersAction;
+use App\Application\Actions\NewUser\ListUsersAction;
 use App\Application\Actions\Paciente\PacienteAction;
+use App\Application\Actions\Paciente\CadPacienteAction;
+use App\Application\Actions\Paciente\DelPacienteAction;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Application\Actions\Paciente\ListPacienteAction;
 use App\Application\Actions\Paciente\ViewPacienteAction;

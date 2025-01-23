@@ -45,14 +45,9 @@ const constructDataTable = async() => {
         }
         ]
 });
-
     return table;
-
 }
 
-// function populaFormulario(obj){
-//     console.log(`Dentro da função ${JSON.stringify(obj)}`);
-// }
 
 const populaFormulario = (obj) => {
     Object
@@ -60,8 +55,8 @@ const populaFormulario = (obj) => {
     .forEach(([key, value]) => {
         $(`#${key}`).val(value);
     })
-
 };
+
 
 const cleanForm = () => {
     $(`#id`).val("");
@@ -91,8 +86,8 @@ let message = (icon, mensagem) => {
 
 $("body").on("click", ".btn_edit_pacient", async e => {
     try {
-
         let id = e.target.dataset.id;
+
         $("#id").val(`${e.target.dataset.id}`);
 
         let response = await fetch(`${requests.urlPacientes}/${id}`);
@@ -101,18 +96,12 @@ $("body").on("click", ".btn_edit_pacient", async e => {
 
         populaFormulario(obj);
 
-        let modal = document.getElementById("dialogEditaFormulario");
-
-        modal.show();
-
-
+        $("#dialogEditaFormulario").modal('show');
     } catch (exception) {
-
         alert(exception);
     }
-
-        
 });
+
 
 $("body").on("click", ".btn_del_pacient", async e => {
     try {
@@ -128,7 +117,6 @@ $("body").on("click", ".btn_del_pacient", async e => {
         let response = await request.json();
 
         if (!response.data['icon']) {
-
             return message('error', 'Erro desconhecido');
 
         }
@@ -137,15 +125,12 @@ $("body").on("click", ".btn_del_pacient", async e => {
 
         if(response.data['icon'] != 'error') {
             return setTimeout(() => {  window.location.reload() }, 1000);
-
     }
 
     } catch (exception) {
 
         message('error', exception);
     }
-
-    
 });
 
 
@@ -161,50 +146,23 @@ $("body").on("click", "#btn_submit_modal", async (e) => {
     
     let response = await request.json();
 
-    // console.log(await response);
-
     message(response.data['icon'], response.data['msg']);
-
-    let modal = document.getElementById("dialogEditaFormulario");
 
     if (!response.data['icon']) {
         return message('error', 'Erro desconhecido');
 
     }
 
-    message(response.data['icon'], response.data['msg']);
-
     if(response.data['icon'] != 'error') {
-        modal.close();
-        return setTimeout(() => {  window.location.reload() }, 1000);
-        
+        $("#dialogEditaFormulario").modal('hide');
+
+        return setTimeout(() => {  window.location.reload() }, 1000);     
 }
 
-    // modal.close();
-
-    // setTimeout(() => {  window.location.reload(); }, 1000);
 });
 
 
-$("body").on("click", "#btn_close_modal", () => {
-    let modal = document.getElementById("dialogEditaFormulario");
-
-    modal.close();
-
-})
-
-
 $("body").on("click", "#btn_show_cadastrate_pacient", () => {
-    cleanForm();
-
-    let modal = document.getElementById("dialogEditaFormulario");
-
-    modal.show();
+    cleanForm();  
+    $("#dialogEditaFormulario").modal('show');
 })
-
-
-
-
-
-
-

@@ -29,7 +29,7 @@ class PacienteRepository implements PacienteRepositoryInterface
     {
         try {
 
-        $query = "SELECT * FROM usuarios where ativo = TRUE";
+        $query = "SELECT * FROM pacientes where ativo = TRUE";
         $stmt = $this->sql->prepare($query);
         $stmt->execute();
         $resp = $stmt->fetchAll(SQL::FETCH_ASSOC);
@@ -49,7 +49,7 @@ class PacienteRepository implements PacienteRepositoryInterface
     {
         try{
         
-        $query = "SELECT * FROM usuarios WHERE id = :id AND ativo = TRUE;";
+        $query = "SELECT * FROM pacientes WHERE id = :id AND ativo = TRUE;";
         $stmt = $this->sql->prepare($query);
 
         $stmt->bindValue(":id", $id);
@@ -71,7 +71,7 @@ class PacienteRepository implements PacienteRepositoryInterface
     {
         try{
 
-            $query = "INSERT INTO usuarios (nome, data_nascimento, sexo, nome_mae, email, cpf, cep, nome_rua, numero_casa, bairro, uf) VALUES ( :nome, :data_nascimento, :sexo, :nome_mae, :email, :cpf, :cep, :nome_rua, :numero_casa, :bairro, :uf);";
+            $query = "INSERT INTO pacientes (nome, data_nascimento, sexo, nome_mae, email, cpf, cep, nome_rua, numero_casa, bairro, uf) VALUES ( :nome, :data_nascimento, :sexo, :nome_mae, :email, :cpf, :cep, :nome_rua, :numero_casa, :bairro, :uf);";
 
             $stmt = $this->sql->prepare($query);
 
@@ -102,7 +102,7 @@ class PacienteRepository implements PacienteRepositoryInterface
     {
         try{
         
-            $query = "UPDATE usuarios SET ativo = false where id = :id";
+            $query = "UPDATE pacientes SET ativo = false where id = :id";
 
             $stmt = $this->sql->prepare($query);
             $stmt->bindValue(":id", $id);
@@ -123,7 +123,7 @@ class PacienteRepository implements PacienteRepositoryInterface
         
         try{
             
-            $query = "UPDATE usuarios SET nome = :nome, data_nascimento = :data_nascimento, sexo = :sexo, nome_mae = :nome_mae, email = :email, cpf = :cpf, cep = :cep, nome_rua = :nome_rua, numero_casa = :numero_casa, bairro = :bairro, uf = :uf WHERE id = :id AND ativo = TRUE;";
+            $query = "UPDATE pacientes SET nome = :nome, data_nascimento = :data_nascimento, sexo = :sexo, nome_mae = :nome_mae, email = :email, cpf = :cpf, cep = :cep, nome_rua = :nome_rua, numero_casa = :numero_casa, bairro = :bairro, uf = :uf WHERE id = :id AND ativo = TRUE;";
             
             $stmt = $this->sql->prepare($query);
             
