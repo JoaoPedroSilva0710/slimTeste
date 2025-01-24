@@ -16,5 +16,5 @@ interface UserRepositoryInterface
      * @return User
      * @throws UserNotFoundException
      */
-    public function findUserOfId(int $id): User;
+    public function findUserOfId(int $id): array;
 }

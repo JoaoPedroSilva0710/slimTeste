@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Paciente;
+namespace App\Infrastructure\Persistence\Paciente;
 
-use App\Domain\Mensagem;
-use Exception;
-use App\Infrastructure\Sql\Sql;
 use PDO;
+use Exception;
+use App\Domain\Mensagem;
+use App\Infrastructure\Sql\Sql;
+use App\Domain\Paciente\Paciente;
+use App\Domain\Paciente\PacienteRepositoryInterface;
 
 class PacienteRepository implements PacienteRepositoryInterface
 {
