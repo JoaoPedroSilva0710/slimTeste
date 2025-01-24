@@ -1,15 +1,14 @@
-import * as requests from "./module/requests.js";
+import * as requests from "../module/requests.js";
 
 $(
 async() => 
 {
     await constructDataTable();
-   
 });
 
-const fetchPacients = async() => 
+const fetchUsers = async() => 
 {
-    let response = await fetch(requests.urlPacientes);
+    let response = await fetch(requests.urlUsers);
     let obj = await response.json();
     let data = await obj.data;
 
@@ -19,26 +18,18 @@ const fetchPacients = async() =>
 
 
 const constructDataTable = async() => {
-    let data = fetchPacients();
+    let data = fetchUsers();
 
-    let table = new DataTable('#tablePacientes', {
+    let table = new DataTable('#tableUsers', {
         data: await data,
         columns: [
-            { data: "nome" },
-            { data: "data_nascimento" },
-            { data: "sexo" },
-            { data: "nome_mae" },
-            { data: "email" },
+            { data: "name" },
             { data: "cpf" },
-            { data: "cep" },
-            { data: "nome_rua" },
-            { data: "numero_casa" },
-            { data: "bairro" },
-            { data: "uf" },
+            { data: "email" },
             { render: function(data, type, row) {
              return `<div class="divButtonClass">
-                            <i class="fa-solid fa-pencil btn_edit_pacient" data-id="${row.id}"></i>
-                            <i class="fa-solid fa-trash btn_del_pacient" data-id="${row.id}"></i>
+                            <i class="fa-solid fa-pencil btn_edit_user" data-id="${row.id}"></i>
+                            <i class="fa-solid fa-trash btn_del_user" data-id="${row.id}"></i>
                     </div>
                     `;
             }
@@ -61,18 +52,9 @@ const populaFormulario = (obj) => {
 const cleanForm = () => {
     $(`#id`).val("");
     $(`#nome`).val("");
-    $(`#data_nascimento`).val("");
-    $(`#sexo`).val("");
-    $(`#nome_mae`).val("");
     $(`#email`).val("");
     $(`#cpf`).val("");
-    $(`#cep`).val("");
-    $(`#nome_rua`).val("");
-    $(`#numero_casa`).val("");
-    $(`#bairro`).val("");
-    $(`#uf`).val("");
 };
-
 
 
 let message = (icon, mensagem) => {
@@ -84,85 +66,85 @@ let message = (icon, mensagem) => {
       })};
 
 
-$("body").on("click", ".btn_edit_pacient", async e => {
-    try {
-        let id = e.target.dataset.id;
+// $("body").on("click", ".btn_edit_user", async e => {
+//     try {
+//         let id = e.target.dataset.id;
 
-        $("#id").val(`${e.target.dataset.id}`);
+//         $("#id").val(`${e.target.dataset.id}`);
 
-        let response = await fetch(`${requests.urlPacientes}/${id}`);
+//         let response = await fetch(`${requests.urlPacientes}/${id}`);
 
-        let obj = await response.json();    
+//         let obj = await response.json();    
 
-        populaFormulario(obj);
+//         populaFormulario(obj);
 
-        $("#dialogEditaFormulario").modal('show');
-    } catch (exception) {
-        alert(exception);
-    }
-});
-
-
-$("body").on("click", ".btn_del_pacient", async e => {
-    try {
-        $("#id").val(`${e.target.dataset.id}`);
-
-        let form = new FormData(document.getElementById("formulario"));
-
-        let request = await fetch(`${requests.urlPacienteDelete}`, {
-            method: "POST",
-            body: form
-        });
-
-        let response = await request.json();
-
-        if (!response.data['icon']) {
-            return message('error', 'Erro desconhecido');
-
-        }
-
-        message(response.data['icon'], response.data['msg']);
-
-        if(response.data['icon'] != 'error') {
-            return setTimeout(() => {  window.location.reload() }, 1000);
-    }
-
-    } catch (exception) {
-
-        message('error', exception);
-    }
-});
+//         $("#dialogEditaFormulario").modal('show');
+//     } catch (exception) {
+//         alert(exception);
+//     }
+// });
 
 
-$("body").on("click", "#btn_submit_modal", async (e) => {
+// $("body").on("click", ".btn_del_user", async e => {
+//     try {
+//         $("#id").val(`${e.target.dataset.id}`);
 
-    let form = new FormData(document.getElementById("formulario"));
+//         let form = new FormData(document.getElementById("formulario"));
 
-    let request = await fetch(`${requests.urlPacientes}`, {
-        method: "POST",
-        body: form
+//         let request = await fetch(`${requests.urlPacienteDelete}`, {
+//             method: "POST",
+//             body: form
+//         });
 
-    });
+//         let response = await request.json();
+
+//         if (!response.data['icon']) {
+//             return message('error', 'Erro desconhecido');
+
+//         }
+
+//         message(response.data['icon'], response.data['msg']);
+
+//         if(response.data['icon'] != 'error') {
+//             return setTimeout(() => {  window.location.reload() }, 1000);
+//     }
+
+//     } catch (exception) {
+
+//         message('error', exception);
+//     }
+// });
+
+
+// $("body").on("click", "#btn_submit_modal", async (e) => {
+
+//     let form = new FormData(document.getElementById("formulario"));
+
+//     let request = await fetch(`${requests.urlPacientes}`, {
+//         method: "POST",
+//         body: form
+
+//     });
     
-    let response = await request.json();
+//     let response = await request.json();
 
-    message(response.data['icon'], response.data['msg']);
+//     message(response.data['icon'], response.data['msg']);
 
-    if (!response.data['icon']) {
-        return message('error', 'Erro desconhecido');
+//     if (!response.data['icon']) {
+//         return message('error', 'Erro desconhecido');
 
-    }
+//     }
 
-    if(response.data['icon'] != 'error') {
-        $("#dialogEditaFormulario").modal('hide');
+//     if(response.data['icon'] != 'error') {
+//         $("#dialogEditaFormulario").modal('hide');
 
-        return setTimeout(() => {  window.location.reload() }, 1000);     
-}
+//         return setTimeout(() => {  window.location.reload() }, 1000);     
+// }
 
-});
+// });
 
 
-$("body").on("click", "#btn_show_cadastrate_pacient", () => {
+$("body").on("click", "#btn_show_cadastrate_user", () => {
     cleanForm();  
     $("#dialogEditaFormulario").modal('show');
 })
