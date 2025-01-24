@@ -17,4 +17,13 @@ interface UserRepositoryInterface
      * @throws UserNotFoundException
      */
     public function findUserOfId(int $id): array;
+
+    public function cadastrate(User $user): array;
+
+    public function inactive(int $id): array; 
+
+    public function delete(int $id): array;
+
+    public function update(User $user): array;
 }
+

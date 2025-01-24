@@ -34,6 +34,10 @@ return function (App $app) {
             $view = Twig::fromRequest($request);
             return $view->render($response, 'cadastrarUsuario.html');
         }); 
+        $group->get('/listar', function ($request, $response, $args) {
+            $view = Twig::fromRequest($request);
+            return $view->render($response, '/admin/user/listar.html');
+        });
     });
     
     $app->get('/listar', function ($request, $response, $args) {

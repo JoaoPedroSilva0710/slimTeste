@@ -1,0 +1,101 @@
+{% extends 'master.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="assets/css/listarStyle.css" />
+
+{% endblock %}
+
+{% block master %}
+
+<div id="idTitle" class="container">
+
+    <p class="h1">Lista de pacientes</p>
+
+</div>
+
+<div class="container" >
+
+    <button type="button" class="btn btn-primary" id="btn_show_cadastrate_pacient">
+        Cadastar Novo Paciente
+      </button>
+
+<table id="tablePacientes" class="table table-striped" >
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+    </tbody>
+
+</table>
+</div>
+
+<div class="container">
+
+<div class="modal fade"  id="dialogEditaFormulario" name="dialogEditaFormulario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog" >
+    <div class="modal-content">
+    
+        <div class="modal-header">
+
+            <h5 class="modal-title">Formulário de cadastro de pacientes</h5>
+        
+        </div>
+            
+        <div class="modal-body">
+        
+            <form id="formulario" name="formulario">
+                
+                <input type="hidden" id="id" name="id">
+                
+                <div class="mb-3">
+                    <label for="name" class="col-form-label">Nome</label>
+                    <input type="text" id="name" name="name" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label for="cpf" class="col-form-label">CPF</label>
+                    <input type="text" id="cpf" name="cpf" class="form-control">
+                </div>
+            
+            <div class="mb-3">
+                <label for="email" class="col-form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-control">
+            </div>
+            
+            
+            
+            <input type="hidden" id="ativo" name="ativo" value="true">
+            
+        </form>
+            
+            <div class="modal-footer div_btn_form">
+                    
+                <input type="button" id="btn_close_modal" value="Fechar" class="btn btn-secondary" data-bs-dismiss="modal">
+                <input type="button" id="btn_submit_modal" value="Enviar" class="btn btn-primary">
+        
+            </div>
+            
+
+        </div>
+        </div>
+    </div>
+    
+
+</div>
+    
+    
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/assets/js/listar.js" type="module"></script>
+
+{% endblock %}

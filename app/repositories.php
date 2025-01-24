@@ -3,13 +3,12 @@
 declare(strict_types=1);
 
 use DI\ContainerBuilder;
-use App\Domain\Paciente\PacienteRepository;
-
 // use App\Domain\User\UserRepository;
 // use App\Infrastructure\Persistence\User\InMemoryUserRepository;
 use App\Domain\NewUser\UserRepositoryInterface;
 use App\Domain\Paciente\PacienteRepositoryInterface;
 use App\Infrastructure\Persistence\NewUser\UserRepository;
+use App\Infrastructure\Persistence\Paciente\PacienteRepository;
 
 return function (ContainerBuilder $containerBuilder) {
     // Here we map our UserRepository interface to its in memory implementation

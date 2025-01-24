@@ -17,7 +17,7 @@ class UserRepository implements UserRepositoryInterface
     const USER_UPDATED = 'Usuário Atualizado com sucesso';
     const USER_CREATED = 'Usuário Criado com sucesso';
     const USER_DELETED = 'Usuário Deletado com sucesso';
-    const USER_INACTIVATED = 'Usuário Inaticado com sucesso';
+    const USER_INACTIVATED = 'Usuário Inativado com sucesso';
 
         /**
      * @var User[]
@@ -151,4 +151,21 @@ class UserRepository implements UserRepositoryInterface
         }
 
     }
+
+    public function delete(int $id): array 
+    {
+        $query = "UPDATE users SET date_deleted = :date_deleted";
+        
+        $stmt = $this->sql->prepare($query);
+        $stmt->bindValue(':date_deleted', date('Y-m-d'));
+
+        try {
+            $stmt->execute();
+        } catch (\Throwable $th) {
+            return Mensagem::response('error', $th->getMessage(), $th->getCode());
+        }
+
+        return Mensagem::response('success', self::USER_DELETED, 201);
+    }
+
 }

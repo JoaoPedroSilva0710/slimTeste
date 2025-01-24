@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Application\Actions\NewUser;
 
+use Exception;
 use App\Application\Actions\NewUser\UserAction;
+use App\Domain\Mensagem;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class ListUsersAction extends UserAction
@@ -12,12 +14,18 @@ class ListUsersAction extends UserAction
     /**
      * {@inheritdoc}
      */
-    protected function action(): Response
+    protected function action() : Response 
     {
-        $users = $this->userRepository->findAll();
+        try {
+            
+            $users = $this->userRepository->findAll();
 
-        $this->logger->info("Users list was viewed.");
+        } catch (Exception $e) {
 
+            return Mensagem::response('error', $e->getMessage(), $e->getCode());
+            
+        }
         return $this->respondWithData($users);
+
     }
 }
