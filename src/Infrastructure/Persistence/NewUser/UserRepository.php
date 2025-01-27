@@ -39,7 +39,7 @@ class UserRepository implements UserRepositoryInterface
     {
         try {
 
-            $query = "SELECT * FROM users where active = TRUE;";
+            $query = "SELECT name, cpf, email, active, privileges FROM users where active = TRUE;";
 
             $stmt = $this->sql->prepare($query);
             $stmt->execute();
@@ -60,7 +60,7 @@ class UserRepository implements UserRepositoryInterface
     {
         try{
         
-            $query = "SELECT * FROM users WHERE id = :id AND active = TRUE;";
+            $query = "SELECT name, cpf, email, active, privileges FROM users WHERE id = :id AND active = TRUE;";
             $stmt = $this->sql->prepare($query);
     
             $stmt->bindValue(":id", $id);
@@ -80,17 +80,16 @@ class UserRepository implements UserRepositoryInterface
     public function cadastrate(User $user): array
     {
         try{
-            $query = "INSERT INTO users id,	email, password, name, cpf, privileges, active VALUES (:id, :email, :password, :name, :cpf, :privileges, :active);";
+            $query = "INSERT INTO users	(name, cpf, email, password, privileges, active) VALUES (:name, :cpf, :email, :password, :privileges, :active);";
 
             $stmt = $this->sql->prepare($query);
 
-            $stmt->bindValue(":nome", $user->id);
-            $stmt->bindValue(":data_nascimento", $user->email);
-            $stmt->bindValue(":sexo", $user->password);
-            $stmt->bindValue(":nome_mae", $user->name);
-            $stmt->bindValue(":email", $user->cpf);
-            $stmt->bindValue(":cpf", $user->privileges);
-            $stmt->bindValue(":cep", $user->active);
+            $stmt->bindValue(":name", $user->name);
+            $stmt->bindValue(":cpf", $user->cpf);
+            $stmt->bindValue(":email", $user->email);
+            $stmt->bindValue(":password", $user->password);
+            $stmt->bindValue(":privileges", $user->privileges->value);
+            $stmt->bindValue(":active", $user->active);
 
             $stmt->execute();
     

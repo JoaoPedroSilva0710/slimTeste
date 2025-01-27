@@ -7,36 +7,53 @@
 
     <p class="h1">Cadastar Novo Usuário</p>
     
-    <form>
+    <form id="formulario">
+        <input type="hidden" id="id" name="id">
+
         <div class="mb-3">
             <label for="name" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="name">
+            <input type="text" class="form-control" id="name" name="name">
             
         </div>
 
         <div class="mb-3">
             <label for="cpf" class="form-label">CPF</label>
-            <input type="text" class="form-control" id="cpf">
+            <input type="text" class="form-control" id="cpf" name="cpf">
             
         </div>
 
         <div class="mb-3">
-            <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email">
             
             <div id="emailHelp" class="form-text">Certifique-se de colocar um e-mail válido</div>
         </div>
         
         <div class="mb-3">
-            <label for="inputPassword" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="inputPassword">
+            <label for="password" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="password" name="password">
         </div>
 
+        <div class="mb-3">
+            <label for="privileges" class="form-label">Privilégio</label>
+            <select class="form-select" aria-label="Default select example" id="privileges" name="privileges" form="formulario">
+                <option selected>Escolha o Privilégio do Usuário</option>
+                <option value="super admin">Super Admin</option>
+                <option value="admin">Admin</option>
+                <option value="usuario">Usuário</option>
+            </select>
+        </div>
                 
-        <button type="submit" class="btn btn-primary">Enviar</button>
+        <button type="button" class="btn btn-primary" id="btn_submit">Enviar</button>
+
     </form>
 
 </div>
 
+
+{% endblock %}
+
+{% block scripts %}
+    <script type="module" src="/assets/js/admin/users/cadastrar.js"></script>
 
 {% endblock %}

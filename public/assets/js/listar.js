@@ -1,3 +1,4 @@
+import { message } from "./module/ownFunctions.js";
 import * as requests from "./module/requests.js";
 
 $(
@@ -75,13 +76,6 @@ const cleanForm = () => {
 
 
 
-let message = (icon, mensagem) => {
-    Swal.fire({
-        icon: icon,
-        text: mensagem,
-        showConfirmButton: false,
-        timer: 1500
-      })};
 
 
 $("body").on("click", ".btn_edit_pacient", async e => {

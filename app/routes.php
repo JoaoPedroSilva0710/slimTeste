@@ -5,10 +5,9 @@ declare(strict_types=1);
 use Slim\App;
 use Slim\Views\Twig;
 use PhpParser\Node\Expr\List_;
+use App\Application\Actions\NewUser\CadUserAction;
 use App\Application\Actions\NewUser\ViewUserAction;
 use Psr\Http\Message\ResponseInterface as Response;
-// use App\Application\Actions\User\ViewUserAction;
-// use App\Application\Actions\User\ListUsersAction;
 use App\Application\Actions\NewUser\ListUsersAction;
 use App\Application\Actions\Paciente\PacienteAction;
 use App\Application\Actions\Paciente\CadPacienteAction;
@@ -30,7 +29,7 @@ return function (App $app) {
     });
 
     $app->group('/admin', function (Group $group) {
-        $group->get('/cadastrar', function ($request, $response, $args) {
+        $group->get('/users/cadastrar', function ($request, $response, $args) {
             $view = Twig::fromRequest($request);
             return $view->render($response, 'cadastrarUsuario.html');
         }); 
@@ -49,6 +48,7 @@ return function (App $app) {
 
     $app->group('/users', function (Group $group) {
         $group->get('', ListUsersAction::class);
+        $group->post('', CadUserAction::class);
         $group->get('/{id}', ViewUserAction::class);
     });
 
@@ -58,4 +58,5 @@ return function (App $app) {
     $group->get('/{id}', ViewPacienteAction::class);
     $group->post('/delete', DelPacienteAction::class);
     });
+
 };

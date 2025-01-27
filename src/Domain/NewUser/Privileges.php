@@ -6,7 +6,7 @@ namespace App\Domain\NewUser;
 
 enum Privileges : string
 {
-    case SuperAdmin = 'Super Admin';
-    case Admin = 'Admin';
-    case User = 'User';
+    case SuperAdmin = 'super admin';
+    case Admin = 'admin';
+    case User = 'usuario';
 }

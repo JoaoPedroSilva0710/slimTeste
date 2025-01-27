@@ -56,16 +56,6 @@ const cleanForm = () => {
     $(`#cpf`).val("");
 };
 
-
-let message = (icon, mensagem) => {
-    Swal.fire({
-        icon: icon,
-        text: mensagem,
-        showConfirmButton: false,
-        timer: 1500
-      })};
-
-
 // $("body").on("click", ".btn_edit_user", async e => {
 //     try {
 //         let id = e.target.dataset.id;

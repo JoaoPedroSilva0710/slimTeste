@@ -21,14 +21,14 @@ class User implements JsonSerializable
     const INVALID_NOT_NUMBER_IN_PASSWORD = 'A senha deve possuir no minímo 1 número';
     const INVALID_NOT_LETTER_IN_PASSWORD = 'A senha deve possuir no minímo 1 letra';
 
-    private function __construct(public readonly ?int $id, public readonly string $name, public readonly string $cpf, public readonly string $email, public readonly string $password, public readonly string $privileges, public readonly ?bool $active)
+    private function __construct(public readonly ?int $id, public readonly string $name, public readonly string $cpf, public readonly string $email, public readonly string $password, public readonly Privileges $privileges, public readonly ?bool $active)
     {
 
     }
 
-    public function create(?int $id, string $name, string $cpf, string $email, string $password, string $privileges, ?bool $active): self
+    public static function create(?int $id, string $name, string $cpf, string $email, string $password, Privileges $privileges, ?bool $active): self
     {
-        return new self(self::idValidation($id), self::nameValidation($name),  self::cpfValidation($cpf), self::emailValidation($email), self::PasswordStrength($password), self::VerifyPrivileges($privileges), $active);
+        return new self(self::idValidation($id), self::nameValidation($name),  self::cpfValidation($cpf), self::emailValidation($email), self::PasswordStrength($password), $privileges, $active);
 
     }
 
@@ -67,16 +67,9 @@ class User implements JsonSerializable
         return $cpf;
     }
 
-    private static function VerifyPrivileges(string $privileges)
-    {
-        if(!Privileges::from($privileges)) throw new Exception(self::INVALID_PRIVILEGES, 400);
-
-        return $privileges;
-    }
-
     private static function PasswordStrength(string $password)
     {
-        if(!strlen($password) < 8) throw new Exception(self::INVALID_SHORT_PASSWORD, 400);
+        if(strlen($password) < 8) throw new Exception(self::INVALID_SHORT_PASSWORD, 400);
         if(!preg_match('/[0-9]+/', $password)) throw new Exception(self::INVALID_NOT_NUMBER_IN_PASSWORD, 400);
         if(!preg_match('/[a-zA-Z]+/', $password)) throw new Exception(self::INVALID_NOT_LETTER_IN_PASSWORD, 400);
 
@@ -91,8 +84,7 @@ class User implements JsonSerializable
             'id' => $this->id,
             'name' => $this->name,
             'cpf' => $this->cpf,
-            'login' => $this->email,
-            'password' => $this->password,
+            'email' => $this->email,
             'privileges' => $this->privileges,
             'active' => $this->active
         ];
