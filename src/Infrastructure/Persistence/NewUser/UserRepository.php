@@ -167,4 +167,36 @@ class UserRepository implements UserRepositoryInterface
         return Mensagem::response('success', self::USER_DELETED, 201);
     }
 
+    public function login(string $email, string $passwd)
+    {
+        try{
+        
+            $query = "SELECT name, cpf, email, active, privileges FROM users WHERE email = :email AND active = TRUE;";
+            $stmt = $this->sql->prepare($query);
+    
+            $stmt->bindValue(":email", $email);
+            
+            $stmt->execute();
+    
+            $resp = $stmt->fetch(Sql::FETCH_ASSOC);
+
+            
+    
+            return $resp;
+            
+            } catch(Exception $e){
+                return Mensagem::response('error', $e->getMessage(), $e->getCode());
+    
+            }
+    }
+
+    private function verifypasswd(?string $passwd, ?string $resp) 
+    {
+        if(!password_verify($passwd, $resp['password'])){
+            header("Location: ../index.php");
+        }
+        
+        session_start();
+        $_SESSION["user"] = $resp['name'];
+    }
 }
