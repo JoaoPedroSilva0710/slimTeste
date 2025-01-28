@@ -1,4 +1,4 @@
-export let message = (icon, mensagem) => {
+let message = (icon, mensagem) => {
     Swal.fire({
         icon: icon,
         text: mensagem,

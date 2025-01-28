@@ -1,6 +1,5 @@
-import { message } from "./module/ownFunctions.js";
-import * as requests from "./module/requests.js";
-
+// import { message } from "./module/ownFunctions.js";
+// import * as requests from "./module/requests.js";
 $(
 async() => 
 {
@@ -10,7 +9,7 @@ async() =>
 
 const fetchPacients = async() => 
 {
-    let response = await fetch(requests.urlPacientes);
+    let response = await fetch(urlPacientes);
     let obj = await response.json();
     let data = await obj.data;
 
@@ -84,7 +83,7 @@ $("body").on("click", ".btn_edit_pacient", async e => {
 
         $("#id").val(`${e.target.dataset.id}`);
 
-        let response = await fetch(`${requests.urlPacientes}/${id}`);
+        let response = await fetch(`${urlPacientes}/${id}`);
 
         let obj = await response.json();    
 
@@ -103,7 +102,7 @@ $("body").on("click", ".btn_del_pacient", async e => {
 
         let form = new FormData(document.getElementById("formulario"));
 
-        let request = await fetch(`${requests.urlPacienteDelete}`, {
+        let request = await fetch(`${urlPacienteDelete}`, {
             method: "POST",
             body: form
         });
@@ -132,7 +131,7 @@ $("body").on("click", "#btn_submit_modal", async (e) => {
 
     let form = new FormData(document.getElementById("formulario"));
 
-    let request = await fetch(`${requests.urlPacientes}`, {
+    let request = await fetch(`${urlPacientes}`, {
         method: "POST",
         body: form
 

@@ -1,13 +1,10 @@
-import * as requests from "/assets/js/module/requests.js";
-import { message } from "/assets/js/module/ownFunctions.js";
-
 $("body").on("click", "#btn_submit", async () => {
 
     $('#id').val("");                   
 
     let form = new FormData(document.getElementById("formulario"));
     
-    let request = await fetch(`${requests.urlUsers}`, {
+    let request = await fetch(`${urlUsers}`, {
         method: "POST",
         body: form
     });

@@ -10,7 +10,7 @@ use App\Domain\NewUser\UserRepositoryInterface;
 
 abstract class UserAction extends Action
 {
-    protected UserRepositoryInterface $userRepository;
+    protected UserRepositoryInterface $userRepository; 
 
     public function __construct(LoggerInterface $logger, UserRepositoryInterface $userRepository)
     {

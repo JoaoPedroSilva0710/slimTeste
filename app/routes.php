@@ -16,6 +16,7 @@ use App\Application\Actions\Paciente\DelPacienteAction;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Application\Actions\Paciente\ListPacienteAction;
 use App\Application\Actions\Paciente\ViewPacienteAction;
+use App\Application\Middleware\AdminMiddleware;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
 return function (App $app) {
@@ -45,7 +46,7 @@ return function (App $app) {
     $app->get('/listar', function ($request, $response, $args) {
         $view = Twig::fromRequest($request);
         return $view->render($response, 'listar.html');
-    });
+    })->add(AdminMiddleware::class);
 
     $app->group('/users', function (Group $group) {
         $group->get('', ListUsersAction::class);

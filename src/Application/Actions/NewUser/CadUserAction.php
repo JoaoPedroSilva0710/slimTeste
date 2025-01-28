@@ -8,10 +8,12 @@ use App\Domain\Mensagem;
 use App\Domain\NewUser\User;
 use App\Domain\NewUser\Privileges;
 use App\Application\Actions\NewUser\UserAction;
+use App\Infrastructure\Sql\Sql;
 
 class CadUserAction extends UserAction
 {
     const INVALID_PRIVILEGES = 'Este tipo de privilégio não existe';
+    // const BD_ERRORS = 'Há algum erro na aplicação, caso o erro persistir procure os administradores';
 
     protected function action() : Response 
     {
@@ -30,7 +32,7 @@ class CadUserAction extends UserAction
             $user = User::create($id, $data['name'], $data['cpf'], $data['email'], $data['password'], $privileges,  true);
 
         } catch (Exception $e) {
-            $return = Mensagem::response('error', $e->getMessage(), $e->getCode());
+            $return = Mensagem::response('error', Sql::BD_ERRORS, 400);
             
             return $this->respondWithData($return[0], $return[1]);
         }

@@ -191,9 +191,13 @@ class UserRepository implements UserRepositoryInterface
             
         }
         
-        session_start();
+        if (!isset($_SESSION)) {
+            session_start();
+        }
 
         $_SESSION["user"] = $resp['id'];
+        
+        $_SESSION["privileges"] = $resp['privileges'];
 
         return Mensagem::response('success', self::USER_LOGGED, 200);
     }

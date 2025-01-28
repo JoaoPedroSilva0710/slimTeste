@@ -1,7 +1,11 @@
-export const urlPacientes = '/pacientes';
+const urlPacientes = '/pacientes';
 
-export const urlPacienteDelete = `${urlPacientes}/delete`;
+const urlPacienteDelete = `${urlPacientes}/delete`;
 
-export const urlAdmin = '/admin';
+const urlAdmin = '/admin';
 
-export const urlUsers = '/users';
+const urlUsers = '/users';
+
+const urlList = '/listar';
+
+const urlLogin = '/login';

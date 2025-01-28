@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Application\Actions\NewUser;
 
 use Exception;
-use App\Application\Actions\NewUser\UserAction;
 use App\Domain\Mensagem;
+use App\Infrastructure\Sql\Sql;
+use App\Application\Actions\NewUser\UserAction;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class LoginUserAction extends UserAction
@@ -24,7 +25,8 @@ class LoginUserAction extends UserAction
 
             
         } catch (\Throwable $th) {
-            $return = Mensagem::response('error', $th->getMessage(), $th->getCode());
+            $return = Mensagem::response('error', Sql::BD_ERRORS, 400);
+            
             return $this->respondWithData($return[0],$return[1]);
         }
 

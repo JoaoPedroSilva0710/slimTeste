@@ -9,7 +9,7 @@ use PhpParser\Node\Expr\Throw_;
 
 class Sql extends PDO
 {
-    const IMPOSSIBLE_CREATE_CONNECTION = 'Não foi possível criar a conexão com o Banco de dados';
+    const BD_ERRORS = 'Há algum erro na aplicação, caso o erro persistir procure os administradores';
 
     function __construct()
     {
@@ -19,7 +19,7 @@ class Sql extends PDO
             parent::__construct("pgsql:dbname={$env['dbName']};host={$env['dbHost']};port={$env['dbPort']}", $env['dbUser'], $env['dbPass']);
 
         } catch (Exception $e) {
-            Throw new Exception(self::IMPOSSIBLE_CREATE_CONNECTION, 400);
+            return Mensagem::response('error', self::BD_ERRORS, 400);
         }
 
     }
