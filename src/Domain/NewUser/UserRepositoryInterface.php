@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\NewUser;
 
+use PhpParser\Builder\Function_;
+
 interface UserRepositoryInterface
 {
     /**
@@ -25,5 +27,8 @@ interface UserRepositoryInterface
     public function delete(int $id): array;
 
     public function update(User $user): array;
+
+    public function login(string $email, string $password): array;
+
 }
 

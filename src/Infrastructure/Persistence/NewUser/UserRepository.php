@@ -18,7 +18,8 @@ class UserRepository implements UserRepositoryInterface
     const USER_CREATED = 'Usuário Criado com sucesso';
     const USER_DELETED = 'Usuário Deletado com sucesso';
     const USER_INACTIVATED = 'Usuário Inativado com sucesso';
-
+    const USER_LOGGED = 'Usuário logado com sucesso';
+    const USER_NOT_LOGGED = 'Senha ou email inválidos';
         /**
      * @var User[]
      */
@@ -167,11 +168,11 @@ class UserRepository implements UserRepositoryInterface
         return Mensagem::response('success', self::USER_DELETED, 201);
     }
 
-    public function login(string $email, string $passwd)
+    public function login(?string $email, ?string $passwd): array
     {
         try{
-        
-            $query = "SELECT name, cpf, email, active, privileges FROM users WHERE email = :email AND active = TRUE;";
+            $query = "SELECT * FROM users WHERE email = :email AND active = TRUE;";
+
             $stmt = $this->sql->prepare($query);
     
             $stmt->bindValue(":email", $email);
@@ -180,23 +181,29 @@ class UserRepository implements UserRepositoryInterface
     
             $resp = $stmt->fetch(Sql::FETCH_ASSOC);
 
-            
-    
-            return $resp;
-            
-            } catch(Exception $e){
-                return Mensagem::response('error', $e->getMessage(), $e->getCode());
-    
-            }
-    }
+            $passwdBd = isset($resp['password']) ? $resp['password'] : 'lasdadk23q';
 
-    private function verifypasswd(?string $passwd, ?string $resp) 
-    {
-        if(!password_verify($passwd, $resp['password'])){
-            header("Location: ../index.php");
+            if(!$this->verifypasswd($passwd, $passwdBd)) return Mensagem::response('error', self::USER_NOT_LOGGED, 400);    
+            
+        } catch(Exception $e){
+
+            return Mensagem::response('error', 'Um erro foi encontrado, caso permaneça entre em contato com o administrador', 400);
+            
         }
         
         session_start();
-        $_SESSION["user"] = $resp['name'];
+
+        $_SESSION["user"] = $resp['id'];
+
+        return Mensagem::response('success', self::USER_LOGGED, 200);
+    }
+
+    private function verifypasswd(?string $passwd, ?string $passwdBd) 
+    {
+        if(!password_verify($passwd, $passwdBd)){
+            return false;
+        }
+
+        return true;
     }
 }

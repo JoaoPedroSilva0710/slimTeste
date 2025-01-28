@@ -1,0 +1,37 @@
+{% extends 'master.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="/assets/css/loginStyle.css">
+{% endblock %}
+
+{% block master %}
+
+<div class="position-absolute top-50 start-50 translate-middle w-50 p-3 h-75 d-inline-block" >
+
+
+    <p class="h1">Entre</p>
+    
+    <form id="formulario">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+            
+            <div id="emailHelp" class="form-text">Certifique-se de colocar um e-mail válido</div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="password" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+        
+        <button type="button" class="btn btn-primary" id="btnSubmit">Enviar</button>
+    </form>
+</div>
+    
+    {% endblock %}
+
+    {% block scripts %}
+    <script src="/assets/js/login.js" type="module"></script>
+    {% endblock %}
+
+    

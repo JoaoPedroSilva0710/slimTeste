@@ -9,6 +9,7 @@ use App\Application\Actions\NewUser\CadUserAction;
 use App\Application\Actions\NewUser\ViewUserAction;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Actions\NewUser\ListUsersAction;
+use App\Application\Actions\NewUser\LoginUserAction;
 use App\Application\Actions\Paciente\PacienteAction;
 use App\Application\Actions\Paciente\CadPacienteAction;
 use App\Application\Actions\Paciente\DelPacienteAction;
@@ -25,7 +26,7 @@ return function (App $app) {
 
     $app->get('/', function ($request, $response, $args) {
         $view = Twig::fromRequest($request);
-        return $view->render($response, 'home.html');
+        return $view->render($response, 'login.html');
     });
 
     $app->group('/admin', function (Group $group) {
@@ -59,4 +60,5 @@ return function (App $app) {
     $group->post('/delete', DelPacienteAction::class);
     });
 
+    $app->post('/login', LoginUserAction::class);
 };
