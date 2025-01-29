@@ -73,6 +73,8 @@ class User implements JsonSerializable
         if(!preg_match('/[0-9]+/', $password)) throw new Exception(self::INVALID_NOT_NUMBER_IN_PASSWORD, 400);
         if(!preg_match('/[a-zA-Z]+/', $password)) throw new Exception(self::INVALID_NOT_LETTER_IN_PASSWORD, 400);
 
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
         return $password;
     }
 

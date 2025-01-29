@@ -39,8 +39,9 @@ class PacienteRepository implements PacienteRepositoryInterface
         return $resp;
 
         } catch(Exception $e) {
-            return Mensagem::response('error', $e->getMessage(), $e->getCode());
-        }
+
+        return Mensagem::response('error', $this->sql::BD_ERRORS, 400);        }
+    
     }
 
 
@@ -63,7 +64,8 @@ class PacienteRepository implements PacienteRepositoryInterface
         return $resp;
         
         } catch(Exception $e){
-            return Mensagem::response('error', $e->getMessage(), $e->getCode());
+
+            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);
 
         }
     }
@@ -94,8 +96,9 @@ class PacienteRepository implements PacienteRepositoryInterface
             return Mensagem::response('success', self::PACIENT_CREATED, 201);
             
             } catch(Exception $e){
-                return Mensagem::response('error', $e->getMessage(), $e->getCode());
-    
+
+            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);    
+            
             }
     }
 
@@ -114,8 +117,9 @@ class PacienteRepository implements PacienteRepositoryInterface
             return Mensagem::response('success', self::PACIENT_DELETED, 201);
             
             } catch(Exception $e){
-                return Mensagem::response('error', $e->getMessage(), $e->getCode());
-    
+
+            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);    
+
             }
     }
 
@@ -148,8 +152,7 @@ class PacienteRepository implements PacienteRepositoryInterface
             
         } catch(Exception $e){
 
-            return Mensagem::response('error', $e->getMessage(), $e->getCode());
-            
+            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);            
         }
 
     }

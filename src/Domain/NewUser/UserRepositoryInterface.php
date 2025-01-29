@@ -29,6 +29,5 @@ interface UserRepositoryInterface
     public function update(User $user): array;
 
     public function login(string $email, string $password): array;
-
 }
 

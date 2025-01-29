@@ -10,6 +10,7 @@ use App\Domain\NewUser\User;
 use App\Infrastructure\Sql\Sql;
 use App\Domain\NewUser\UserNotFoundException;
 use App\Domain\NewUser\UserRepositoryInterface;
+use PhpParser\Node\Expr\Cast\Unset_;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -50,7 +51,7 @@ class UserRepository implements UserRepositoryInterface
             return $resp;
     
             } catch(Exception $e) {
-                return Mensagem::response('error', $e->getMessage(), $e->getCode());
+                return Mensagem::response('error', $this->sql::BD_ERRORS, 400);
             }
     }
 
@@ -73,7 +74,7 @@ class UserRepository implements UserRepositoryInterface
             return $resp;
             
             } catch(Exception $e){
-                return Mensagem::response('error', $e->getMessage(), $e->getCode());
+                return Mensagem::response('error', $this->sql::BD_ERRORS, 400);
     
             }
     }
@@ -97,8 +98,9 @@ class UserRepository implements UserRepositoryInterface
             return Mensagem::response('success', self::USER_CREATED, 201);
             
             } catch(Exception $e){
-                return Mensagem::response('error', $e->getMessage(), $e->getCode());
-    
+
+            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);     
+
             }
     }
 
@@ -117,8 +119,9 @@ class UserRepository implements UserRepositoryInterface
             return Mensagem::response('success', self::USER_INACTIVATED, 201);
             
             } catch(Exception $e){
-                return Mensagem::response('error', $e->getMessage(), $e->getCode());
-    
+
+            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);  
+
             }
     }
 
@@ -146,8 +149,7 @@ class UserRepository implements UserRepositoryInterface
             
         } catch(Exception $e){
 
-            return Mensagem::response('error', $e->getMessage(), $e->getCode());
-            
+            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);             
         }
 
     }
@@ -187,7 +189,7 @@ class UserRepository implements UserRepositoryInterface
             
         } catch(Exception $e){
 
-            return Mensagem::response('error', 'Um erro foi encontrado, caso permaneça entre em contato com o administrador', 400);
+            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);
             
         }
         
@@ -195,9 +197,9 @@ class UserRepository implements UserRepositoryInterface
             session_start();
         }
 
-        $_SESSION["user"] = $resp['id'];
+        $_SESSION['user'] = $resp['id'];
         
-        $_SESSION["privileges"] = $resp['privileges'];
+        $_SESSION['privileges'] = $resp['privileges'];
 
         return Mensagem::response('success', self::USER_LOGGED, 200);
     }
@@ -210,4 +212,5 @@ class UserRepository implements UserRepositoryInterface
 
         return true;
     }
+
 }
