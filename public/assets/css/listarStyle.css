@@ -17,10 +17,16 @@
     color: rgb(255, 0, 0);
 }
 
-.btn_edit_pacient{
+.btn_edit{
     font-size: 200%;
     cursor: pointer;
     color: rgb(115, 253, 91);
+}
+
+.btn_del{
+    font-size: 200%;
+    cursor: pointer;
+    color: rgb(255, 0, 0);
 }
 
 

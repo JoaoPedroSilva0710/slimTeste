@@ -1,7 +1,7 @@
 {% extends 'master.html' %}
 
 {% block styles %}
-<link rel="stylesheet" href="/assets/css/listarStyle.css" />
+<link rel="stylesheet" href="/assets/css/listarStyle.css?r={{rand}}" />
 
 {% endblock %}
 
@@ -9,13 +9,13 @@
 
 <div id="idTitle" class="container">
 
-    <p class="h1">Lista de pacientes</p>
+    <p class="h1">Lista de usuários</p>
 
 </div>
 
 <div class="container" >
 
-    <button type="button" class="btn btn-primary" id="btn_show_cadastrate_pacient">
+    <button type="button" class="btn btn-primary" id="btn_show_cadastrate_user">
         Cadastar Novo Usuário
       </button>
 
@@ -25,6 +25,8 @@
             <th>Nome</th>
             <th>CPF</th>
             <th>Email</th>
+            <th>Ativo</th>
+            <th>Tipo de usuário</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -45,7 +47,7 @@
     
         <div class="modal-header">
 
-            <h5 class="modal-title">Formulário de cadastro de pacientes</h5>
+            <h5 class="modal-title">Formulário de cadastro de usuários</h5>
         
         </div>
             
@@ -93,5 +95,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="/assets/js/admin/listar.js" type="module"></script>
+<script src="/assets/js/admin/listar.js?r={{rand}}" type="module"></script>
 {% endblock %}

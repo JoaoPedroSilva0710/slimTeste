@@ -8,5 +8,5 @@ enum Privileges : string
 {
     case SuperAdmin = 'super admin';
     case Admin = 'admin';
-    case User = 'usuario';
+    case User = 'user';
 }

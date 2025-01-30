@@ -10,23 +10,27 @@ use App\Domain\Mensagem;
 use App\Infrastructure\Sql\Sql;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class ListUsersAction extends UserAction
+class DeleteUserAction extends UserAction
 {
+
     /**
      * {@inheritdoc}
      */
     protected function action() : Response 
     {
+        $data = $this->request->getParsedBody();
+
+        $id = (int) $data['id'];
+        
         try {
-            
-            $users = $this->userRepository->findAll();
+            $return = $this->userRepository->delete($id);
 
         } catch (Exception $e) {
 
             return Mensagem::response('error', Sql::BD_ERRORS, 400);
 
         }
-        return $this->respondWithData($users);
+        return $this->respondWithData($return[0], $return[1]);
 
     }
 }

@@ -14,8 +14,7 @@ $("body").on("click", "#btnSubmit" , async () => {
     }
 
     else{
-        console.log(data);
-        window.location.href = urlList;
+        window.location.href = urlSander;
     }
 
 });

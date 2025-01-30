@@ -28,8 +28,6 @@ class CadPacienteAction extends PacienteAction
 
         $return = !$id ? $this->pacienteRepository->cadastrate($paciente) : $this->pacienteRepository->update($paciente);
 
-        // $return = !$id ? '$this->pacienteRepository->cadastrate($paciente)' : '$this->pacienteRepository->update($paciente)';
-
         return $this->respondWithData($return[0], $return[1]);
 
     }

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% set rand = random(1234567890123, 98765432159865) %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página inicial</title>
-    <link href="https://cdn.datatables.net/v/bs5/dt-2.2.1/b-3.2.0/datatables.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/assets/fontawesome/fontawesome-free-6.7.2-web/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link href="https://cdn.datatables.net/v/bs5/dt-2.2.1/b-3.2.0/datatables.min.css?r={{rand}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css?r={{rand}}" />
+    <link rel="stylesheet" href="/assets/fontawesome/fontawesome-free-6.7.2-web/css/all.min.css?r={{rand}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.min.css?r={{rand}}">
+    <link rel="stylesheet" href="/assets/css/style.css?r={{rand}}">
     {% block styles %}{% endblock %}
 </head>
 <body>
@@ -16,15 +17,13 @@
         {% block master %}{% endblock %}
     </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/v/bs5/dt-2.2.1/b-3.2.0/datatables.min.js"></script>
-<!-- <script src="https://cdn.datatables.net/2.2.1/js/dataTables.bootstrap5.js"></script> -->
-
-<script src="/assets/js/main.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.all.min.js"></script>
-<script src="/assets/js/module/ownFunctions.js"></script>
-<script src="/assets/js/module/requests.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js?r={{rand}}" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js?r={{rand}}"></script>
+<script src="https://cdn.datatables.net/v/bs5/dt-2.2.1/b-3.2.0/datatables.min.js?r={{rand}}"></script>
+<script src="/assets/js/main.js?r={{rand}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.all.min.js?r={{rand}}"></script>
+<script src="/assets/js/module/ownFunctions.js?r={{rand}}"></script>
+<script src="/assets/js/module/requests.js?r={{rand}}"></script>
 {% block scripts %}{% endblock %}
 
 </html>

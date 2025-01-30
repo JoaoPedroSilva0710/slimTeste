@@ -41,7 +41,7 @@ class UserRepository implements UserRepositoryInterface
     {
         try {
 
-            $query = "SELECT name, cpf, email, active, privileges FROM users where active = TRUE;";
+            $query = "SELECT id, name, cpf, email, active, privileges FROM users where date_deleted is null;";
 
             $stmt = $this->sql->prepare($query);
             $stmt->execute();
@@ -62,7 +62,7 @@ class UserRepository implements UserRepositoryInterface
     {
         try{
         
-            $query = "SELECT name, cpf, email, active, privileges FROM users WHERE id = :id AND active = TRUE;";
+            $query = "SELECT name, cpf, email, active, privileges FROM users WHERE id = :id AND date_deleted is null;";
             $stmt = $this->sql->prepare($query);
     
             $stmt->bindValue(":id", $id);
@@ -156,15 +156,17 @@ class UserRepository implements UserRepositoryInterface
 
     public function delete(int $id): array 
     {
-        $query = "UPDATE users SET date_deleted = :date_deleted";
+        $query = "UPDATE users SET date_deleted = :date_deleted where id = :id;";
         
         $stmt = $this->sql->prepare($query);
+
+        $stmt->bindValue(":id", $id);
         $stmt->bindValue(':date_deleted', date('Y-m-d'));
 
         try {
             $stmt->execute();
         } catch (\Throwable $th) {
-            return Mensagem::response('error', $th->getMessage(), $th->getCode());
+            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);
         }
 
         return Mensagem::response('success', self::USER_DELETED, 201);
@@ -173,7 +175,7 @@ class UserRepository implements UserRepositoryInterface
     public function login(?string $email, ?string $passwd): array
     {
         try{
-            $query = "SELECT * FROM users WHERE email = :email AND active = TRUE;";
+            $query = "SELECT * FROM users WHERE email = :email AND date_deleted is null;";
 
             $stmt = $this->sql->prepare($query);
     

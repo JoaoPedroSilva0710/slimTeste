@@ -37,8 +37,8 @@ const constructDataTable = async() => {
             { data: "uf" },
             { render: function(data, type, row) {
              return `<div class="divButtonClass">
-                            <i class="fa-solid fa-pencil btn_edit_pacient" data-id="${row.id}"></i>
-                            <i class="fa-solid fa-trash btn_del_pacient" data-id="${row.id}"></i>
+                            <i class="fa-solid fa-pencil btn_edit" data-id="${row.id}"></i>
+                            <i class="fa-solid fa-trash btn_del" data-id="${row.id}"></i>
                     </div>
                     `;
             }
@@ -77,7 +77,7 @@ const cleanForm = () => {
 
 
 
-$("body").on("click", ".btn_edit_pacient", async e => {
+$("body").on("click", ".btn_edit", async e => {
     try {
         let id = e.target.dataset.id;
 
@@ -96,7 +96,7 @@ $("body").on("click", ".btn_edit_pacient", async e => {
 });
 
 
-$("body").on("click", ".btn_del_pacient", async e => {
+$("body").on("click", ".btn_del", async e => {
     try {
         $("#id").val(`${e.target.dataset.id}`);
 
@@ -122,7 +122,7 @@ $("body").on("click", ".btn_del_pacient", async e => {
 
     } catch (exception) {
 
-        message('error', exception);
+        message('error', 'Erro desconhecido');
     }
 });
 

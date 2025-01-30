@@ -23,10 +23,12 @@ const constructDataTable = async() => {
             { data: "name" },
             { data: "cpf" },
             { data: "email" },
+            {data: "active"},
+            {data: "privileges"},
             { render: function(data, type, row) {
              return `<div class="divButtonClass">
-                            <i class="fa-solid fa-pencil btn_edit_user" data-id="${row.id}"></i>
-                            <i class="fa-solid fa-trash btn_del_user" data-id="${row.id}"></i>
+                            <i class="fa-solid fa-pencil btn_edit" data-id="${row.id}"></i>
+                            <i class="fa-solid fa-trash btn_del" data-id="${row.id}"></i>
                     </div>
                     `;
             }
@@ -58,3 +60,37 @@ $("body").on("click", "#btn_show_cadastrate_user", () => {
     cleanForm();  
     $("#dialogEditaFormulario").modal('show');
 });
+
+
+$("body").on("click", ".btn_del", async e => {
+    
+    $("#id").val(`${e.target.dataset.id}`);
+
+    try{
+
+    let form = new FormData(document.getElementById("formulario"));
+    
+    let request = await fetch(urlDeleteUser, {
+        method:'POST',
+        body: form
+    });
+
+    let response = await request.json();
+
+    if (!response.data['icon']) {
+        return message('error', 'Erro desconhecido');
+
+    }
+
+    message(response.data['icon'], response.data['msg']);
+
+    if(response.data['icon'] != 'error') {
+        return setTimeout(() => {  window.location.reload() }, 1000);
+}
+
+} catch (exception) {
+
+    message('error', 'Erro desconhecido');
+}
+
+})

@@ -1,7 +1,7 @@
 {% extends 'master.html' %}
 
 {% block styles %}
-<link rel="stylesheet" href="assets/css/listarStyle.css" />
+<link rel="stylesheet" href="/assets/css/listarStyle.css?r={{rand}}" />
 
 {% endblock %}
 
@@ -146,6 +146,6 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="/assets/js/listar.js" type="module"></script>
+<script src="/assets/js/listar.js?r={{rand}}" type="module"></script>
 
 {% endblock %}
