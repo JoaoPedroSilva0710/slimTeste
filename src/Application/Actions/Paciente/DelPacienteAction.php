@@ -20,9 +20,9 @@ class DelPacienteAction extends PacienteAction
             $return = $this->pacienteRepository->delete($id);
 
         } catch (Exception $e) {
-            $return = Mensagem::response('error', $e->getMessage(), $e->getCode());
+            $exception = Mensagem::response('error', $e->getMessage(), $e->getCode());
             
-            return $this->respondWithData($return[0], $return[1]);
+            return $this->respondWithData($exception[0], $exception[1]);
 
         }
 

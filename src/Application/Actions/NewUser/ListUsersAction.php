@@ -22,8 +22,11 @@ class ListUsersAction extends UserAction
             $users = $this->userRepository->findAll();
 
         } catch (Exception $e) {
+            
+            $exception = Mensagem::response('error', $e->getMessage(), $e->getCode());
+            
+            return $this->respondWithData($exception[0], $exception[1]);
 
-            return Mensagem::response('error', Sql::BD_ERRORS, 400);
 
         }
         return $this->respondWithData($users);

@@ -31,7 +31,7 @@ class PacienteRepository implements PacienteRepositoryInterface
     {
         try {
 
-        $query = "SELECT * FROM pacientes where ativo = TRUE";
+        $query = "SELECT * FROM pacientes where ativo = TRUE;";
         $stmt = $this->sql->prepare($query);
         $stmt->execute();
         $resp = $stmt->fetchAll(SQL::FETCH_ASSOC);
@@ -40,7 +40,9 @@ class PacienteRepository implements PacienteRepositoryInterface
 
         } catch(Exception $e) {
 
-        return Mensagem::response('error', $this->sql::BD_ERRORS, 400);        }
+            throw new Exception(Sql::BD_ERRORS, 400);        
+                    
+    }
     
     }
 
@@ -65,7 +67,7 @@ class PacienteRepository implements PacienteRepositoryInterface
         
         } catch(Exception $e){
 
-            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);
+            throw new Exception(Sql::BD_ERRORS, 400);  
 
         }
     }
@@ -97,8 +99,8 @@ class PacienteRepository implements PacienteRepositoryInterface
             
             } catch(Exception $e){
 
-            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);    
-            
+                throw new Exception(Sql::BD_ERRORS, 400);  
+
             }
     }
 
@@ -118,7 +120,7 @@ class PacienteRepository implements PacienteRepositoryInterface
             
             } catch(Exception $e){
 
-            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);    
+                throw new Exception(Sql::BD_ERRORS, 400);  
 
             }
     }
@@ -152,7 +154,7 @@ class PacienteRepository implements PacienteRepositoryInterface
             
         } catch(Exception $e){
 
-            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);            
+            throw new Exception(Sql::BD_ERRORS, 400);  
         }
 
     }

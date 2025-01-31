@@ -24,10 +24,10 @@ class LoginUserAction extends UserAction
             $logged = $this->userRepository->login($email, $password);
 
             
-        } catch (\Throwable $th) {
-            $return = Mensagem::response('error', Sql::BD_ERRORS, 400);
+        } catch (\Exception $e) {
+            $exception = Mensagem::response('error', $e->getMessage(), $e->getCode());
             
-            return $this->respondWithData($return[0],$return[1]);
+            return $this->respondWithData($exception[0], $exception[1]);
         }
 
         if($logged[1] != 200) {

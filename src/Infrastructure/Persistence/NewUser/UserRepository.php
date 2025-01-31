@@ -51,7 +51,7 @@ class UserRepository implements UserRepositoryInterface
             return $resp;
     
             } catch(Exception $e) {
-                return Mensagem::response('error', $this->sql::BD_ERRORS, 400);
+                throw new Exception(Sql::BD_ERRORS, 400);
             }
     }
 
@@ -74,7 +74,7 @@ class UserRepository implements UserRepositoryInterface
             return $resp;
             
             } catch(Exception $e){
-                return Mensagem::response('error', $this->sql::BD_ERRORS, 400);
+                throw new Exception(Sql::BD_ERRORS, 400);
     
             }
     }
@@ -99,7 +99,7 @@ class UserRepository implements UserRepositoryInterface
             
             } catch(Exception $e){
 
-            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);     
+                throw new Exception(Sql::BD_ERRORS, 400);
 
             }
     }
@@ -120,7 +120,7 @@ class UserRepository implements UserRepositoryInterface
             
             } catch(Exception $e){
 
-            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);  
+                throw new Exception(Sql::BD_ERRORS, 400);
 
             }
     }
@@ -149,7 +149,7 @@ class UserRepository implements UserRepositoryInterface
             
         } catch(Exception $e){
 
-            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);             
+            throw new Exception(Sql::BD_ERRORS, 400);
         }
 
     }
@@ -166,7 +166,7 @@ class UserRepository implements UserRepositoryInterface
         try {
             $stmt->execute();
         } catch (\Throwable $th) {
-            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);
+            throw new Exception(Sql::BD_ERRORS, 400);
         }
 
         return Mensagem::response('success', self::USER_DELETED, 201);
@@ -191,7 +191,7 @@ class UserRepository implements UserRepositoryInterface
             
         } catch(Exception $e){
 
-            return Mensagem::response('error', $this->sql::BD_ERRORS, 400);
+            throw new Exception(Sql::BD_ERRORS, 400);
             
         }
         
