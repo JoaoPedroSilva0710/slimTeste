@@ -34,7 +34,7 @@ class User implements JsonSerializable
 
     private static function nameValidation(string $name)
     {
-        $pattern = '/^[a-záéíóúâêôãõç ]+$/ui';
+        $pattern = '/^[a-záéíóúâêôãõç\' ]+$/ui';
         if(!preg_match($pattern, $name)) throw new Exception(self::INVALID_NAME, 400);
 
         if(strlen($name) < 3) throw new Exception(self::INVALID_SHORT_NAME, 400);
