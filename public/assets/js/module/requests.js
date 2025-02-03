@@ -10,7 +10,7 @@ const urlList = '/listar';
 
 const urlLogin = '/login';
 
-const urlSander = '/sander';
+const urlSender = '/sender';
 
 const urlLogout = '/logout';
 

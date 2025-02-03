@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Actions\NewUser;
 
 use Exception;
@@ -13,7 +15,6 @@ use App\Infrastructure\Sql\Sql;
 class CadUserAction extends UserAction
 {
     const INVALID_PRIVILEGES = 'Este tipo de privilégio não existe';
-    // const BD_ERRORS = 'Há algum erro na aplicação, caso o erro persistir procure os administradores';
 
     protected function action() : Response 
     {

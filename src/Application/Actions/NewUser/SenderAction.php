@@ -9,7 +9,7 @@ use App\Domain\NewUser\Privileges;
 
 
 
-class SanderAction extends UserAction
+class SenderAction extends UserAction
 {
     protected function action() : Response 
     {

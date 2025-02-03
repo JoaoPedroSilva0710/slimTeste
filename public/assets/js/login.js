@@ -14,7 +14,7 @@ $("body").on("click", "#btnSubmit" , async () => {
     }
 
     else{
-        window.location.href = urlSander;
+        window.location.href = urlSender;
     }
 
 });

@@ -12,7 +12,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Actions\NewUser\ListUsersAction;
 use App\Application\Actions\NewUser\LoginUserAction;
 use App\Application\Actions\NewUser\LogoutUserAction;
-use App\Application\Actions\NewUser\SanderAction;
+use App\Application\Actions\NewUser\SenderAction;
 use App\Application\Actions\Paciente\PacienteAction;
 use App\Application\Actions\Paciente\CadPacienteAction;
 use App\Application\Actions\Paciente\DelPacienteAction;
@@ -35,7 +35,7 @@ return function (App $app) {
         return $view->render($response, 'login.html');
     })->add(GuestMiddleware::class);
 
-    $app->get('/sander', SanderAction::class);
+    $app->get('/sender', SenderAction::class);
 
     $app->group('/admin', function (Group $group) {
         $group->get('/users/cadastrar', function ($request, $response, $args) {
