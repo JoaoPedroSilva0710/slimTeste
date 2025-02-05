@@ -15,8 +15,8 @@ class User implements JsonSerializable
     const INVALID_SHORT_NAME = 'O nome do paciente deve ter no mínimo 3 caracteres';
     const INVALID_EMAIL = 'Este e-mail é inválido';
     const INVALID_CPF = 'Este CPF é inválido';
-    const INVALID_PRIVILEGES = 'Este tipo de privilégio não existe';
-    const INVALID_ATIVO = 'O ativo deve ser do tipo booleano';
+    const INVALID_PRIVILEGE = 'Este tipo de privilégio não existe';
+    const INVALID_ACTIVE = 'O ativo deve ser do tipo booleano';
     const INVALID_SHORT_PASSWORD = 'A senha deve possuir no minímo 8 caracteres';
     const INVALID_NOT_NUMBER_IN_PASSWORD = 'A senha deve possuir no minímo 1 número';
     const INVALID_NOT_LETTER_IN_PASSWORD = 'A senha deve possuir no minímo 1 letra';
@@ -44,7 +44,7 @@ class User implements JsonSerializable
 
     private static function idValidation(?int $id): ?int 
     {
-        if(!is_null($id) && $id < 0) throw new Exception(self::INVALID_ID, 400);
+        if(!is_null($id) && ($id <= 0 || $id > 2147483647)) throw new Exception(self::INVALID_ID, 400);
 
         return $id;
     }
