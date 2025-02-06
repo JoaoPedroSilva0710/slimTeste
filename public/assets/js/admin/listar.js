@@ -56,10 +56,12 @@ const cleanForm = () => {
 };
 
 
-$("body").on("click", "#btn_show_cadastrate_user", () => {
-    cleanForm();  
-    $("#dialogEditaFormulario").modal('show');
-});
+// $("body").on("click", "#btn_show_cadastrate_user", () => {
+//     cleanForm();  
+//     $("#dialogEditaFormulario").modal('show');
+// });
+
+$("body").on("click", "#btn_to_cadastrate_page", () => window.location.href = urlListUsers);
 
 
 $("body").on("click", ".btn_del", async e => {

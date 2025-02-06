@@ -187,8 +187,8 @@ class UserRepository implements UserRepositoryInterface
 
             $passwdBd = isset($resp['password']) ? $resp['password'] : 'lasdadk23q';
 
-            if(!$this->verifypasswd($passwd, $passwdBd)) return Mensagem::response('error', self::USER_NOT_LOGGED, 400);    
-            
+            if(!$this->verifypasswd($passwd, $passwdBd)) return Mensagem::response('error', self::USER_NOT_LOGGED, 400);
+
         } catch(Exception $e){
 
             throw new Exception(Sql::BD_ERRORS, 400);

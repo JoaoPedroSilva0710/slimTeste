@@ -15,3 +15,6 @@ const urlSender = '/sender';
 const urlLogout = '/logout';
 
 const urlDeleteUser = `${urlUsers}/delete`;
+
+
+const urlListUsers = `${urlAdmin}/users/cadastrar`;

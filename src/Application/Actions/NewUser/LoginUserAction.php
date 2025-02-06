@@ -27,12 +27,12 @@ class LoginUserAction extends UserAction
         } catch (\Exception $e) {
             $exception = Mensagem::response('error', $e->getMessage(), $e->getCode());
             
+            $this->logger->notice($e->getMessage(), ['exception' => $e]);
+            
             return $this->respondWithData($exception[0], $exception[1]);
         }
 
-        if($logged[1] != 200) {
-            return $this->respondWithData($logged[0], $logged[1]);
-        }
+        if($logged[1] != 200) $this->logger->info($logged[0]['msg']);
         
         return $this->respondWithData($logged[0], $logged[1]);
     }

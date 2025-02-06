@@ -24,6 +24,12 @@ return function (ContainerBuilder $containerBuilder) {
             $handler = new StreamHandler($loggerSettings['path'], $loggerSettings['level']);
             $logger->pushHandler($handler);
 
+            $emailHandler = new StreamHandler($loggerSettings['path'], $loggerSettings['levelWarning']);
+            $logger->pushHandler($emailHandler);
+
+            $telegramHandler = new StreamHandler($loggerSettings['path'], $loggerSettings['levelCritical']);
+            $logger->pushHandler($telegramHandler);
+            
             return $logger;
         },
     ]);

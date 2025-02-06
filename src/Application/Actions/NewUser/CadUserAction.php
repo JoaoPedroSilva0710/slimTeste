@@ -34,6 +34,9 @@ class CadUserAction extends UserAction
             $user = User::create($id, $data['name'], $data['cpf'], $data['email'], $data['password'], $privileges,  true);
 
         } catch (Exception $e) {
+
+            $this->logger->notice($e->getMessage(), ['exception' => $e]);
+
             $exception = Mensagem::response('error', $e->getMessage(), $e->getCode());
             
             return $this->respondWithData($exception[0], $exception[1]);
@@ -42,7 +45,8 @@ class CadUserAction extends UserAction
 
         $return = !$id ? $this->userRepository->cadastrate($user) : $this->userRepository->update($user);
 
-        // $return = !$id ? '$this->pacienteRepository->cadastrate($paciente)' : '$this->pacienteRepository->update($paciente)';
+        
+        $this->logger->debug('Usuário Cadastrado ou atualizado com sucesso');
 
         return $this->respondWithData($return[0], $return[1]);
 

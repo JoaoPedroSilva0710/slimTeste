@@ -21,6 +21,8 @@ class CadPacienteAction extends PacienteAction
 
         } catch (Exception $e) {
             $return = Mensagem::response('error', $e->getMessage(), $e->getCode());
+
+            $this->logger->debug($e->getMessage(), ['exception' => $e]);
             
             return $this->respondWithData($return[0], $return[1]);
         }
