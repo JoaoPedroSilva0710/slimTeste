@@ -21,7 +21,7 @@ if (false) { // Should be set to true in production
 	$containerBuilder->enableCompilation(__DIR__ . '/../var/cache');
 }
 
-$env = parse_ini_file(__DIR__."/../.env");
+$env = parse_ini_file(__DIR__."/../.env", true);
 
 if(!$env){
     throw new Exception("Variavel de Ambiente Env nao foi encontrada ou esta mal configurada");

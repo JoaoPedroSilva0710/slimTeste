@@ -29,6 +29,8 @@ class ListUsersAction extends UserAction
 
 
         }
+        // $this->logger->critical("Listaram os usuários");
+
         return $this->respondWithData($users);
 
     }

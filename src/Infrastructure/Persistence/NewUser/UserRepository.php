@@ -11,6 +11,7 @@ use App\Infrastructure\Sql\Sql;
 use App\Domain\NewUser\UserNotFoundException;
 use App\Domain\NewUser\UserRepositoryInterface;
 use PhpParser\Node\Expr\Cast\Unset_;
+use Psr\Log\LoggerInterface;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -29,7 +30,7 @@ class UserRepository implements UserRepositoryInterface
     /**
      * @param User[]|null $users
      */
-    public function __construct(protected Sql $sql)
+    public function __construct(protected Sql $sql, protected LoggerInterface $logger)
     {
 
     }
@@ -51,6 +52,8 @@ class UserRepository implements UserRepositoryInterface
             return $resp;
     
             } catch(Exception $e) {
+                $this->logger->critical($e->getMessage(), ['Exception' => $e]);
+
                 throw new Exception(Sql::BD_ERRORS, 400);
             }
     }
@@ -74,6 +77,7 @@ class UserRepository implements UserRepositoryInterface
             return $resp;
             
             } catch(Exception $e){
+                $this->logger->critical($e->getMessage(), ['Exception' => $e]);
                 throw new Exception(Sql::BD_ERRORS, 400);
     
             }
@@ -98,6 +102,7 @@ class UserRepository implements UserRepositoryInterface
             return Mensagem::response('success', self::USER_CREATED, 201);
             
             } catch(Exception $e){
+                $this->logger->critical($e->getMessage(), ['Exception' => $e]);
 
                 throw new Exception(Sql::BD_ERRORS, 400);
 
@@ -119,6 +124,7 @@ class UserRepository implements UserRepositoryInterface
             return Mensagem::response('success', self::USER_INACTIVATED, 201);
             
             } catch(Exception $e){
+                $this->logger->critical($e->getMessage(), ['Exception' => $e]);
 
                 throw new Exception(Sql::BD_ERRORS, 400);
 
@@ -148,6 +154,7 @@ class UserRepository implements UserRepositoryInterface
             return Mensagem::response('success', self::USER_UPDATED, 201);
             
         } catch(Exception $e){
+            $this->logger->critical($e->getMessage(), ['Exception' => $e]);
 
             throw new Exception(Sql::BD_ERRORS, 400);
         }
@@ -165,7 +172,9 @@ class UserRepository implements UserRepositoryInterface
 
         try {
             $stmt->execute();
-        } catch (\Throwable $th) {
+        } catch (\Exception $e) {
+            $this->logger->critical($e->getMessage(), ['Exception' => $e]);
+
             throw new Exception(Sql::BD_ERRORS, 400);
         }
 
@@ -190,6 +199,7 @@ class UserRepository implements UserRepositoryInterface
             if(!$this->verifypasswd($passwd, $passwdBd)) return Mensagem::response('error', self::USER_NOT_LOGGED, 400);
 
         } catch(Exception $e){
+            $this->logger->critical($e->getMessage(), ['Exception' => $e]);
 
             throw new Exception(Sql::BD_ERRORS, 400);
             

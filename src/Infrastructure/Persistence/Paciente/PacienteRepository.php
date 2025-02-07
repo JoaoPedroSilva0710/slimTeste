@@ -10,6 +10,8 @@ use App\Domain\Mensagem;
 use App\Infrastructure\Sql\Sql;
 use App\Domain\Paciente\Paciente;
 use App\Domain\Paciente\PacienteRepositoryInterface;
+use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 
 class PacienteRepository implements PacienteRepositoryInterface
 {
@@ -18,7 +20,7 @@ class PacienteRepository implements PacienteRepositoryInterface
     const PACIENT_CREATED = 'Paciente Criado com sucesso';
     const PACIENT_DELETED = 'Paciente Deletado com sucesso';
 
-    public function __construct(protected Sql $sql)
+    public function __construct(protected Sql $sql, protected LoggerInterface $logger)
     {
         
     }
@@ -39,6 +41,8 @@ class PacienteRepository implements PacienteRepositoryInterface
         return $resp;
 
         } catch(Exception $e) {
+
+            $this->logger->critical($e->getMessage(), ['Exception' => $e]);
 
             throw new Exception(Sql::BD_ERRORS, 400);        
                     
@@ -66,6 +70,7 @@ class PacienteRepository implements PacienteRepositoryInterface
         return $resp;
         
         } catch(Exception $e){
+            $this->logger->critical($e->getMessage(), ['Exception' => $e]);
 
             throw new Exception(Sql::BD_ERRORS, 400);  
 
@@ -98,7 +103,8 @@ class PacienteRepository implements PacienteRepositoryInterface
             return Mensagem::response('success', self::PACIENT_CREATED, 201);
             
             } catch(Exception $e){
-
+                $this->logger->critical($e->getMessage(), ['Exception' => $e]);
+                
                 throw new Exception(Sql::BD_ERRORS, 400);  
 
             }
@@ -119,6 +125,7 @@ class PacienteRepository implements PacienteRepositoryInterface
             return Mensagem::response('success', self::PACIENT_DELETED, 201);
             
             } catch(Exception $e){
+                $this->logger->critical($e->getMessage(), ['Exception' => $e]);
 
                 throw new Exception(Sql::BD_ERRORS, 400);  
 
@@ -153,7 +160,8 @@ class PacienteRepository implements PacienteRepositoryInterface
             return Mensagem::response('success', self::PACIENT_UPDATED, 201);
             
         } catch(Exception $e){
-
+            $this->logger->critical($e->getMessage(), ['Exception' => $e]);
+            
             throw new Exception(Sql::BD_ERRORS, 400);  
         }
 
