@@ -2,7 +2,6 @@
 
 namespace App\Domain;
 
-use Slim\Psr7\Response;
 
 class Mensagem
 {

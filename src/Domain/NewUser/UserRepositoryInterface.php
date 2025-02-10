@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\NewUser;
 
-use PhpParser\Builder\Function_;
 
 interface UserRepositoryInterface
 {
@@ -16,7 +15,6 @@ interface UserRepositoryInterface
     /**
      * @param int $id
      * @return User
-     * @throws UserNotFoundException
      */
     public function findUserOfId(int $id): array;
 
