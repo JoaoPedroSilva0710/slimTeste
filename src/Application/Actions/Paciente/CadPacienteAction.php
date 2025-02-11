@@ -14,9 +14,13 @@ class CadPacienteAction extends PacienteAction
     protected function action() : Response 
     {
         $data = $this->request->getParsedBody();
+        
         $id = '' == $data['id'] ? null : (int) $data['id'];
+        
+        $data = $this->sanitizeArray($data);
 
         try {
+
             $paciente = Paciente::create($id, $data['nome'], $data['data_nascimento'], $data['sexo'], $data['nome_mae'], $data['email'], $data['cpf'], $data['cep'], $data['nome_rua'], $data['numero_casa'], $data['bairro'], $data['uf'], true);
 
         } catch (Exception $e) {

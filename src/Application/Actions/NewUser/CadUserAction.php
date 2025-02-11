@@ -22,6 +22,8 @@ class CadUserAction extends UserAction
 
         $id = '' == $data['id'] ? null : (int) $data['id'];
 
+        $data = $this->sanitizeArray($data);
+
         $privileges = '' == $data['privileges'] ?  null : Privileges::tryFrom($data['privileges']);
 
         if(!$privileges) {

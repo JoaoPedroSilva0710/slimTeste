@@ -29,7 +29,8 @@
         "slim/psr7": "^1.5",
         "slim/slim": "^4.10",
         "slim/twig-view": "^3.4",
-        "twig/twig": "3.19"
+        "twig/twig": "3.19",
+        "voku/anti-xss": "^4.1"
     },
     "require-dev": {
         "jangregor/phpstan-prophecy": "^1.0.0",

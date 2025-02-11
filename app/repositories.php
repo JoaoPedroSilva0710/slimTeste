@@ -9,12 +9,15 @@ use App\Domain\NewUser\UserRepositoryInterface;
 use App\Domain\Paciente\PacienteRepositoryInterface;
 use App\Infrastructure\Persistence\NewUser\UserRepository;
 use App\Infrastructure\Persistence\Paciente\PacienteRepository;
+use App\services\OwnAntixssInterface;
+use App\services\VokuAntiXss;
 
 return function (ContainerBuilder $containerBuilder) {
     // Here we map our UserRepository interface to its in memory implementation
     $containerBuilder->addDefinitions([
         // UserRepository::class => \DI\autowire(InMemoryUserRepository::class),
         PacienteRepositoryInterface::class => \DI\autowire(PacienteRepository::class),
+        OwnAntixssInterface::class => \DI\autowire(VokuAntiXss::class),
         UserRepositoryInterface::class => \DI\autowire(UserRepository::class)
     ]);
 };
