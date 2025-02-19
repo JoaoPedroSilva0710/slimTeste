@@ -40,7 +40,7 @@ class Paciente implements JsonSerializable
     }
 
     private static function nameValidation(string $nome){
-        $pattern = '/^[a-záéíóúâêôãõç ]+$/ui';
+        $pattern = '/^[a-záéíóúâêôãõç\' ]+$/ui';
         if(!preg_match($pattern, $nome)) throw new Exception(self::INVALID_NAME, 400);
 
         if(strlen($nome) < 3) throw new Exception(self::INVALID_SHORT_NAME, 400);
