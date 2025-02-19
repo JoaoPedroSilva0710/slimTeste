@@ -141,13 +141,13 @@ class UserRepository implements UserRepositoryInterface
             
             $stmt = $this->sql->prepare($query);
             
-            $stmt->bindValue(":nome", $user->id);
-            $stmt->bindValue(":data_nascimento", $user->email);
-            $stmt->bindValue(":sexo", $user->password);
-            $stmt->bindValue(":nome_mae", $user->name);
-            $stmt->bindValue(":email", $user->cpf);
-            $stmt->bindValue(":cpf", $user->privileges);
-            $stmt->bindValue(":cep", $user->active);
+            $stmt->bindValue(":id", $user->id);
+            $stmt->bindValue(":name", $user->name);
+            $stmt->bindValue(":cpf", $user->cpf);
+            $stmt->bindValue(":email", $user->email);
+            $stmt->bindValue(":password", $user->password);
+            $stmt->bindValue(":privileges", $user->privileges->value);
+            $stmt->bindValue(":active", $user->active);
             
             $stmt->execute();
            
